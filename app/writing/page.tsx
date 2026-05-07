@@ -31,7 +31,10 @@ export default async function WritingPage() {
           </p>
           <p className="mt-3 text-muted">
             In the meantime, the project case studies under{' '}
-            <Link href="/projects" className="text-accent hover:underline">
+            <Link
+              href="/projects"
+              className="text-accent underline underline-offset-4"
+            >
               Projects
             </Link>{' '}
             cover the same ground.

@@ -138,7 +138,7 @@ export default async function ProjectPage({
               components={mdxComponents}
             />
           </Prose>
-          <aside className="space-y-8">
+          <div className="space-y-8" aria-label="Project metadata">
             <StackList stack={project.stack} />
             {project.links && project.links.length > 0 && (
               <div>
@@ -176,7 +176,7 @@ export default async function ProjectPage({
                 ))}
               </ul>
             </div>
-          </aside>
+          </div>
         </div>
       </Container>
       <JsonLd data={breadcrumb} />

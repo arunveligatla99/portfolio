@@ -16,14 +16,6 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
     },
-    {
-      name: 'mobile',
-      use: { ...devices['iPhone 13'] },
-    },
-    {
-      name: 'tablet',
-      use: { ...devices['iPad (gen 7)'] },
-    },
   ],
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined

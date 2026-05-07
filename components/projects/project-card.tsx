@@ -9,13 +9,16 @@ export interface ProjectCardProps {
   project: Project;
   className?: string;
   emphasized?: boolean;
+  headingLevel?: 2 | 3;
 }
 
 export function ProjectCard({
   project,
   className,
   emphasized,
+  headingLevel = 2,
 }: ProjectCardProps) {
+  const Heading: 'h2' | 'h3' = headingLevel === 3 ? 'h3' : 'h2';
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -36,7 +39,7 @@ export function ProjectCard({
           className="text-subtle transition-colors group-hover:text-accent"
         />
       </div>
-      <h3 className="mt-2 text-lg font-semibold text-fg">{project.title}</h3>
+      <Heading className="mt-2 text-lg font-semibold text-fg">{project.title}</Heading>
       <p className="mt-2 text-sm text-muted">{project.tagline}</p>
       <div className="mt-4 flex flex-wrap gap-1.5">
         {project.domain.map((d) => (

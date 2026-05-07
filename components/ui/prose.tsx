@@ -16,7 +16,7 @@ export function Prose({
         '[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6',
         '[&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6',
         '[&_li]:my-1',
-        '[&_a]:text-accent [&_a]:underline-offset-4 hover:[&_a]:underline',
+        '[&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4',
         '[&_strong]:font-semibold',
         '[&_blockquote]:my-6 [&_blockquote]:border-l-2 [&_blockquote]:border-default [&_blockquote]:pl-4 [&_blockquote]:text-muted [&_blockquote]:italic',
         '[&_code]:font-mono [&_code]:text-[0.875em] [&_code]:rounded-sm [&_code]:bg-surface-2 [&_code]:px-1 [&_code]:py-0.5',

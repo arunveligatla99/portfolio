@@ -36,7 +36,7 @@ export default function ContactPage() {
       <div className="mt-10 grid gap-12 lg:grid-cols-2">
         <ContactForm />
 
-        <aside className="space-y-6 text-sm">
+        <div className="space-y-6 text-sm" aria-label="Contact details">
           <div>
             <p className="font-mono text-xs uppercase tracking-wide text-subtle">
               Direct
@@ -102,7 +102,7 @@ export default function ContactPage() {
             </p>
             <p className="mt-2 text-muted">Lake Orion, Michigan (ET).</p>
           </div>
-        </aside>
+        </div>
       </div>
       <JsonLd data={breadcrumb} />
     </Container>

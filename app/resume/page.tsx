@@ -117,7 +117,10 @@ export default function ResumePage() {
         <p className="max-w-2xl text-muted">
           The full case studies (problem, approach, stack, outcomes,
           lessons) live under{' '}
-          <Link href="/projects" className="text-accent hover:underline">
+          <Link
+            href="/projects"
+            className="text-accent underline underline-offset-4"
+          >
             /projects
           </Link>
           .

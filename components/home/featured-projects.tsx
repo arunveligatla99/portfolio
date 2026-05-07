@@ -16,7 +16,7 @@ export async function FeaturedProjects() {
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <li key={p.slug}>
-            <ProjectCard project={p} />
+            <ProjectCard project={p} headingLevel={3} />
           </li>
         ))}
       </ul>
