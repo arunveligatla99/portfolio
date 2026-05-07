@@ -1,10 +1,26 @@
-import { Container } from '@/components/ui/container';
+import type { Metadata } from 'next';
+import { Hero } from '@/components/home/hero';
+import { FeaturedProjects } from '@/components/home/featured-projects';
+import { SkillsSummary } from '@/components/home/skills-summary';
+import { ContactCta } from '@/components/home/contact-cta';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Arun Veligatla, Senior Software Engineer',
+  description:
+    'Senior software engineer with 11+ years building production healthcare SaaS, multi-tenant ERP, and Azure AI RAG systems.',
+  path: '/',
+  ogTitle: 'Arun Veligatla',
+  ogEyebrow: 'Senior Software Engineer',
+});
 
 export default function HomePage() {
   return (
-    <Container className="py-24">
-      <h1 className="text-3xl font-semibold">Arun Veligatla</h1>
-      <p className="mt-2 text-muted">Foundation booting…</p>
-    </Container>
+    <>
+      <Hero />
+      <FeaturedProjects />
+      <SkillsSummary />
+      <ContactCta />
+    </>
   );
 }

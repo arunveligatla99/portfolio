@@ -16,7 +16,7 @@
 | Format | Prettier with `prettier-plugin-tailwindcss` | Auto class-sort. |
 | Analytics | `@vercel/analytics` + `@vercel/speed-insights` | First-party, zero-config on Vercel. |
 | Email | `resend` | Lightweight; stub when key missing. |
-| Sitemap/robots | `next-sitemap` | Postbuild generation. |
+| Sitemap/robots | Native `app/sitemap.ts` + `app/robots.ts` | Native App Router idiom; no extra dependency. |
 | OG images | `@vercel/og` | Edge-rendered per-page OG image. |
 | PDF resume | Static `public/arun-veligatla-resume.pdf` | Manual upload; HTML mirror at `/resume` for crawlability. |
 
@@ -144,7 +144,7 @@ interface PostFrontmatter {
 - Single `package.json` script set: `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:e2e`, `format`.
 - GitHub Actions workflow: install → typecheck → lint → vitest → playwright → build. Lighthouse CI deferred to a manual step (documented in README).
 - Vercel deploy via push to `main`. `vercel.json` declares Node version, output dir, and a redirect from `/cv` to `/resume` (vanity).
-- `next-sitemap` runs as `postbuild`.
+- Sitemap and robots emit from `app/sitemap.ts` and `app/robots.ts` at request time / build, no separate postbuild step.
 
 ## Performance budget enforcement
 - `next/image` for any image; layout-shift-safe with explicit width/height.
@@ -159,7 +159,6 @@ interface PostFrontmatter {
 | `@next/mdx`, `remark-gfm`, `rehype-shiki`, `gray-matter` | MDX with GFM tables and build-time syntax highlight. |
 | `@vercel/analytics`, `@vercel/speed-insights` | Vendor analytics with zero perf cost. |
 | `@vercel/og` | Per-page OG image. |
-| `next-sitemap` | Sitemap + robots generation. |
 | `lucide-react` | Icon set. |
 | `clsx`, `tailwind-merge` | shadcn `cn()` helper. |
 | `class-variance-authority` | shadcn variant API. |

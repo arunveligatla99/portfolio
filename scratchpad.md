@@ -25,7 +25,9 @@
 
 ## Deviations from spec
 
-(none yet)
+- Spec listed `next-sitemap` for postbuild generation. Switched to native `app/sitemap.ts` + `app/robots.ts` (Next App Router idiom) and dropped the dependency. Less moving parts, same output. Spec updated to match.
+- MDX files cannot contain HTML comments; the `<!-- TODO: ARUN COPY -->` markers were rewritten to `{/* TODO: ARUN COPY */}` (still grep-able as `TODO: ARUN COPY`).
+- Server vs. client module split: `lib/projects.ts` (server, reads fs) and `lib/projects-shared.ts` (types, schema, labels) so client components can import the latter without dragging `node:fs` into the client bundle.
 
 ---
 
