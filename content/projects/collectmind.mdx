@@ -1,0 +1,60 @@
+---
+title: 'CollectMind'
+tagline: 'Agentic collection policy engine that turns plain-language collection rules into a deterministic, auditable LangGraph workflow.'
+role: 'Lead Engineer'
+period: '2025'
+domain: ['ai-ml', 'fintech']
+stack:
+  - 'Python'
+  - 'LangGraph'
+  - 'FastAPI'
+  - 'PostgreSQL'
+  - 'Redis'
+  - 'OpenAI'
+highlights:
+  - 'Plain-language collection policies compile into a typed LangGraph state machine where every transition is logged with the rule that triggered it.'
+  - 'Built a policy DSL with a small set of vetted operators so the agent cannot invent actions outside the registry.'
+  - 'Deterministic replay: the same input plus the same policy version always produces the same plan, even when the underlying LLM is non-deterministic.'
+  - 'Operator-facing audit trail explains, in human English, why each account took the path it took.'
+metrics:
+  - { label: 'Action registry', value: 'closed set' }
+  - { label: 'Replay determinism', value: 'per policy version' }
+featured: false
+order: 3
+hero:
+  eyebrow: 'Agentic · Fintech'
+  problem: 'Collections teams need to evolve policies frequently, but every change must be auditable, reversible, and consistent across thousands of accounts.'
+  outcome: 'A policy engine where humans write rules in plain language, the system compiles them into a deterministic LangGraph plan, and every account decision is auditable.'
+---
+
+## Problem
+
+Collections policy lives at an awkward intersection: the rules change weekly, the rules are written by analysts not engineers, and the rules have to be auditable down to a single account decision. A pure LLM agent is too non-deterministic; a pure rules engine is too rigid for the way analysts actually want to write rules.
+
+## Approach
+
+Use the LLM only at the boundary, never in the loop.
+
+- **Compile, do not interpret.** Plain-language rules are compiled, once, into a typed LangGraph state machine. The LLM does not run on every account; it runs once per policy version.
+- **Closed action registry.** The compiler can only emit nodes from a vetted registry. If a rule asks for something outside the registry, the compile fails loudly rather than the agent improvising.
+- **Deterministic replay.** The state machine is a pure function of inputs and policy version. Same inputs plus same policy version always produces the same plan.
+- **Audit trail in plain English.** Every decision is annotated with the rule that triggered it, rendered into a human-readable timeline for ops review.
+
+## Stack
+
+- **Compiler / planner:** Python, LangGraph, OpenAI for the natural-language to typed-DSL step.
+- **Runtime:** FastAPI, Postgres for state, Redis for distributed locks.
+- **Observability:** structured logs with rule ids, OpenTelemetry traces.
+
+## Outcomes
+
+- Analysts ship policy changes without engineering involvement.
+- Every account action is auditable down to the rule that caused it.
+- Policy regressions are caught at compile time, not runtime.
+
+## Lessons
+
+- The hardest part of an agentic system is not the agent. It is the registry of safe operations.
+- Determinism per policy version is a far stronger guarantee than "we use temperature 0".
+
+<!-- TODO: ARUN COPY: confirm framing and any additional metrics if cleared for public use. -->
