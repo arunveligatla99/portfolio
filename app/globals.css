@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-bg: #0a0a0b;
+  --color-surface: #111114;
+  --color-surface-2: #17171b;
+  --color-border: #26262b;
+  --color-fg: #ecedee;
+  --color-fg-muted: #a1a1aa;
+  --color-fg-subtle: #71717a;
+  --color-accent: #7dd3fc;
+  --color-accent-fg: #0a0a0b;
+  --color-ring: #38bdf8;
+  --color-success: #34d399;
+  --color-danger: #f87171;
+
+  --radius-card: 0.5rem;
+  --radius-pill: 9999px;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  :root.light {
+    color-scheme: light;
+    --color-bg: #fafafa;
+    --color-surface: #ffffff;
+    --color-surface-2: #f4f4f5;
+    --color-border: #e4e4e7;
+    --color-fg: #09090b;
+    --color-fg-muted: #52525b;
+    --color-fg-subtle: #71717a;
+    --color-accent: #0369a1;
+    --color-accent-fg: #fafafa;
+    --color-ring: #0284c7;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  hr {
+    border-color: var(--color-border);
+  }
+}
+
+@layer utilities {
+  .text-fg {
+    color: var(--color-fg);
+  }
+  .text-muted {
+    color: var(--color-fg-muted);
+  }
+  .text-subtle {
+    color: var(--color-fg-subtle);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .bg-bg {
+    background-color: var(--color-bg);
+  }
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-surface-2 {
+    background-color: var(--color-surface-2);
+  }
+  .border-default {
+    border-color: var(--color-border);
+  }
+  .ring-ring {
+    --tw-ring-color: var(--color-ring);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
