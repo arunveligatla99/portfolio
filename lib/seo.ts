@@ -9,17 +9,32 @@ export const personSchema = {
   '@type': 'Person',
   name: 'Arun Veligatla',
   url: siteUrl,
-  jobTitle: 'Senior Software Engineer',
+  jobTitle: 'Senior AI Engineer',
   email: 'mailto:arun.veligatla@gmail.com',
+  telephone: '+1-201-381-8046',
   sameAs: [
     'https://github.com/arunveligatla',
     'https://www.linkedin.com/in/arun-v-311419137',
   ],
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Oakland University',
-  },
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Oakland University',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Jawaharlal Nehru Technological University',
+    },
+  ],
   knowsAbout: [
+    'Multi-Agent Orchestration',
+    'Agentic Safety',
+    'LLMOps',
+    'LangGraph',
+    'RAG',
+    'GPT-4o',
+    'Qdrant',
+    'RAGAS',
     'C#',
     '.NET',
     'Java',
@@ -31,10 +46,6 @@ export const personSchema = {
     'Angular',
     'AWS',
     'Azure',
-    'Databricks',
-    'PySpark',
-    'LangGraph',
-    'RAG',
     'Multi-Tenant SaaS',
   ],
   address: {

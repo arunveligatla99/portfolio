@@ -25,11 +25,11 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Arun Veligatla, Senior Software Engineer',
+    default: 'Arun Veligatla, Senior AI Engineer',
     template: '%s · Arun Veligatla',
   },
   description:
-    'Senior software engineer with 11+ years building production healthcare SaaS, multi-tenant ERP, and Azure AI RAG systems. Open to senior backend, full-stack, and AI engineering roles.',
+    'Senior AI engineer specializing in multi-agent orchestration, agentic safety, and LLMOps. 11+ years shipping production SaaS, including PolicyMind (production four-agent RAG with 92.5% citation accuracy) and CollectMind (LangGraph vehicle telemetry policy engine). Open to senior AI, backend, and full-stack roles.',
   authors: [{ name: 'Arun Veligatla' }],
   creator: 'Arun Veligatla',
   openGraph: {
@@ -37,15 +37,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Arun Veligatla',
-    title: 'Arun Veligatla, Senior Software Engineer',
+    title: 'Arun Veligatla, Senior AI Engineer',
     description:
-      'Senior software engineer building production healthcare SaaS and Azure AI systems.',
+      'Senior AI engineer building production agentic systems with measured outcomes.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Arun Veligatla, Senior Software Engineer',
+    title: 'Arun Veligatla, Senior AI Engineer',
     description:
-      'Senior software engineer building production healthcare SaaS and Azure AI systems.',
+      'Senior AI engineer building production agentic systems with measured outcomes.',
   },
   robots: { index: true, follow: true },
 };

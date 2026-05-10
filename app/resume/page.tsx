@@ -13,7 +13,7 @@ const RESUME_PDF = '/arun-veligatla-resume.pdf';
 export const metadata: Metadata = pageMetadata({
   title: 'Resume',
   description:
-    'Resume for Arun Veligatla, senior software engineer with 11+ years in healthcare SaaS, multi-tenant ERP, and AI / RAG systems.',
+    'Resume for Arun Veligatla, senior AI engineer specializing in multi-agent orchestration, agentic safety, and LLMOps. 11+ years shipping production SaaS.',
   path: '/resume',
   ogTitle: 'Resume',
   ogEyebrow: 'Arun Veligatla',
@@ -43,9 +43,10 @@ export default function ResumePage() {
           </a>
         </div>
         <p className="mt-3 max-w-2xl text-muted">
-          Senior Software Engineer · Lake Orion, MI · 11+ years in
-          healthcare SaaS, multi-tenant ERP, and AI / RAG systems. Open to
-          senior roles. H-1B with approved I-140, transfer-eligible.
+          Senior AI Engineer · Lake Orion, MI · 11+ years shipping
+          production SaaS. Specializing in multi-agent orchestration,
+          agentic safety, and LLMOps. Open to senior AI, backend, and
+          full-stack roles. H-1B with approved I-140, transfer-eligible.
         </p>
 
         <ul className="mt-6 flex flex-wrap gap-4 text-sm">
@@ -56,6 +57,14 @@ export default function ResumePage() {
             >
               <Mail size={16} aria-hidden />
               arun.veligatla@gmail.com
+            </a>
+          </li>
+          <li>
+            <a
+              className="inline-flex items-center gap-2 text-muted hover:text-fg"
+              href="tel:+12013818046"
+            >
+              (201) 381-8046
             </a>
           </li>
           <li>
@@ -99,17 +108,31 @@ export default function ResumePage() {
         <SkillsMatrix />
       </Section>
 
-      <Section eyebrow="Education" title="Oakland University" bare>
-        <div className="rounded-[var(--radius-card)] border border-default bg-surface p-5">
-          <p className="font-mono text-xs uppercase tracking-wide text-subtle">
-            2013 to 2014
-          </p>
-          <p className="mt-1 text-base font-semibold text-fg">
-            MS, Computer Science and Engineering
-          </p>
-          <p className="text-sm text-muted">
-            Distributed systems, databases, machine learning.
-          </p>
+      <Section eyebrow="Education" title="Education" bare>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-[var(--radius-card)] border border-default bg-surface p-5">
+            <p className="font-mono text-xs uppercase tracking-wide text-subtle">
+              2013 to 2015
+            </p>
+            <p className="mt-1 text-base font-semibold text-fg">
+              MS, Computer Science and Engineering
+            </p>
+            <p className="text-sm text-muted">
+              Oakland University, Michigan. Distributed systems, databases,
+              machine learning.
+            </p>
+          </div>
+          <div className="rounded-[var(--radius-card)] border border-default bg-surface p-5">
+            <p className="font-mono text-xs uppercase tracking-wide text-subtle">
+              2008 to 2012
+            </p>
+            <p className="mt-1 text-base font-semibold text-fg">
+              BS, Computer Science and Engineering
+            </p>
+            <p className="text-sm text-muted">
+              Jawaharlal Nehru Technological University, India.
+            </p>
+          </div>
         </div>
       </Section>
 

@@ -9,7 +9,7 @@ Personal portfolio website for Arun Veligatla. Primary success metric: inbound i
 3. **Peer engineers** linking from GitHub, Slack, conference talks, or referrals. Need: clear bio, contact paths, writing.
 
 ## Positioning
-> Senior software engineer, 11+ years building production healthcare SaaS. Currently shipping multi-tenant SaaS ERP and Azure AI RAG systems with measured outcomes (92.5% citation accuracy, p95 < 800ms, 167 passing tests gated on RAGAS evals).
+> Senior AI engineer specializing in multi-agent orchestration, agentic safety, and LLMOps. 11+ years shipping production SaaS in regulated environments. Recent: PolicyMind (four-agent RAG, 92.5% citation accuracy, 100% escalation recall, 167 CI-gated tests), CollectMind (LangGraph vehicle telemetry policy engine with COVESA VSS validation), Agentix ERP (multi-tenant SaaS ERP with 10-step autonomous onboarding agent on AWS Bedrock).
 
 The site sells **proof, not adjectives**: every claim ties to a metric, a repo, or a system diagram.
 

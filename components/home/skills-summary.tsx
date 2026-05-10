@@ -2,30 +2,43 @@ import { Section } from '@/components/ui/section';
 
 const GROUPS: { label: string; items: string[] }[] = [
   {
-    label: 'Backend',
+    label: 'Agentic AI',
     items: [
-      'C# / .NET Core',
-      'Java / Spring Boot',
-      'Python / FastAPI',
-      'REST',
-      'gRPC',
+      'LangGraph',
+      'Multi-Agent Orchestration',
+      'ReAct Tool-Calling',
+      'RAG',
+      'GPT-4o',
+      'RAGAS',
     ],
   },
   {
-    label: 'Frontend',
-    items: ['TypeScript', 'React', 'Angular', 'Next.js', 'Tailwind'],
+    label: 'Agentic Safety',
+    items: [
+      'NLI Hallucination Verification',
+      'LlamaGuard',
+      'PII Redaction',
+      'Confidence-Gated Deploy',
+      'Compliance Guard',
+    ],
+  },
+  {
+    label: 'Backend',
+    items: [
+      'C# / .NET',
+      'Java / Spring Boot',
+      'Python / FastAPI',
+      'Microservices',
+      'Event-Driven',
+    ],
   },
   {
     label: 'Cloud',
-    items: ['AWS', 'Azure', 'Azure AI Foundry', 'Vercel'],
+    items: ['Azure AI Foundry', 'AWS (Bedrock, Lambda)', 'Docker', 'Kubernetes'],
   },
   {
     label: 'Data',
-    items: ['SQL Server', 'MySQL', 'PostgreSQL', 'Databricks / PySpark'],
-  },
-  {
-    label: 'AI / ML',
-    items: ['LangGraph', 'RAG', 'Agentic workflows', 'XGBoost', 'CausalML'],
+    items: ['PostgreSQL', 'TimescaleDB', 'Qdrant', 'SQL Server', 'Cosmos DB', 'Kafka'],
   },
 ];
 

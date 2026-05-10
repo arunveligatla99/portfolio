@@ -15,7 +15,8 @@ describe('Hero', () => {
     expect(
       screen.getByText(/92.5% citation accuracy/i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/p95 under 800ms/i)).toBeInTheDocument();
+    expect(screen.getByText(/p95 under\s+800ms/i)).toBeInTheDocument();
+    expect(screen.getByText(/100% escalation recall/i)).toBeInTheDocument();
   });
 
   it('shows three CTAs', () => {

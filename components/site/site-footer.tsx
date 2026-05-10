@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div>
           <p className="font-mono text-sm text-fg">Arun Veligatla</p>
           <p className="mt-1 text-sm text-muted">
-            Senior Software Engineer
+            Senior AI Engineer
           </p>
           <p className="mt-1 text-sm text-subtle">Lake Orion, MI</p>
         </div>

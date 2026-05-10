@@ -6,12 +6,12 @@ import { ContactCta } from '@/components/home/contact-cta';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Arun Veligatla, Senior Software Engineer',
+  title: 'Arun Veligatla, Senior AI Engineer',
   description:
-    'Senior software engineer with 11+ years building production healthcare SaaS, multi-tenant ERP, and Azure AI RAG systems.',
+    'Senior AI engineer specializing in multi-agent orchestration, agentic safety, and LLMOps. 11+ years shipping production SaaS in regulated environments.',
   path: '/',
   ogTitle: 'Arun Veligatla',
-  ogEyebrow: 'Senior Software Engineer',
+  ogEyebrow: 'Senior AI Engineer',
 });
 
 export default function HomePage() {

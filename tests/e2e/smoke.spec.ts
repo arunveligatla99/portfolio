@@ -21,7 +21,7 @@ const PAGES = [
     path: '/projects/collectmind',
     heading: /CollectMind/i,
   },
-  { name: 'about', path: '/about', heading: /Senior software engineer/i },
+  { name: 'about', path: '/about', heading: /Senior AI engineer/i },
   { name: 'contact', path: '/contact', heading: /Let.{0,4}s talk/i },
   { name: 'resume', path: '/resume', heading: /Arun Veligatla/i },
   { name: 'writing', path: '/writing', heading: /Writing/i },
