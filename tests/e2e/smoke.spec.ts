@@ -7,14 +7,19 @@ const PAGES = [
   { name: 'home', path: '/', heading: /Arun Veligatla/i },
   { name: 'projects', path: '/projects', heading: /Projects/i },
   {
-    name: 'project-verax',
-    path: '/projects/verax-erp',
-    heading: /VERAX ERP Platform/i,
+    name: 'project-agentix',
+    path: '/projects/agentix-erp',
+    heading: /Agentix ERP/i,
   },
   {
     name: 'project-policymind',
     path: '/projects/policymind',
     heading: /PolicyMind/i,
+  },
+  {
+    name: 'project-collectmind',
+    path: '/projects/collectmind',
+    heading: /CollectMind/i,
   },
   { name: 'about', path: '/about', heading: /Senior software engineer/i },
   { name: 'contact', path: '/contact', heading: /Let.{0,4}s talk/i },

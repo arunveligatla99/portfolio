@@ -109,8 +109,9 @@ regenerated on every `npm run test:e2e` run.
 | ------------------- | -------------------------------------------- | -------------------------------------------- | ---------------------------------------------- |
 | /                   | tests/e2e/screenshots/home-375.png           | tests/e2e/screenshots/home-768.png           | tests/e2e/screenshots/home-1440.png            |
 | /projects           | tests/e2e/screenshots/projects-375.png       | tests/e2e/screenshots/projects-768.png       | tests/e2e/screenshots/projects-1440.png        |
-| /projects/verax-erp | tests/e2e/screenshots/project-verax-375.png  | tests/e2e/screenshots/project-verax-768.png  | tests/e2e/screenshots/project-verax-1440.png   |
-| /projects/policymind| tests/e2e/screenshots/project-policymind-375.png | tests/e2e/screenshots/project-policymind-768.png | tests/e2e/screenshots/project-policymind-1440.png |
+| /projects/agentix-erp | tests/e2e/screenshots/project-agentix-375.png | tests/e2e/screenshots/project-agentix-768.png | tests/e2e/screenshots/project-agentix-1440.png |
+| /projects/policymind | tests/e2e/screenshots/project-policymind-375.png | tests/e2e/screenshots/project-policymind-768.png | tests/e2e/screenshots/project-policymind-1440.png |
+| /projects/collectmind | tests/e2e/screenshots/project-collectmind-375.png | tests/e2e/screenshots/project-collectmind-768.png | tests/e2e/screenshots/project-collectmind-1440.png |
 | /about              | tests/e2e/screenshots/about-375.png          | tests/e2e/screenshots/about-768.png          | tests/e2e/screenshots/about-1440.png           |
 | /contact            | tests/e2e/screenshots/contact-375.png        | tests/e2e/screenshots/contact-768.png        | tests/e2e/screenshots/contact-1440.png         |
 | /resume             | tests/e2e/screenshots/resume-375.png         | tests/e2e/screenshots/resume-768.png         | tests/e2e/screenshots/resume-1440.png          |

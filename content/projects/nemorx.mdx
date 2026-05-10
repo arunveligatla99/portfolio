@@ -1,0 +1,68 @@
+---
+title: 'NemoRx'
+tagline: 'Multi-tenant SaaS e-prescribing platform with React frontend, Cosmos DB tenant isolation, SureScripts integration, and DEA EPCS-compliant identity federation.'
+role: 'Senior Software Developer'
+period: 'May 2018 to Apr 2021'
+domain: ['healthcare', 'enterprise-saas']
+stack:
+  - '.NET Core'
+  - 'C#'
+  - 'React'
+  - 'Entity Framework'
+  - 'SQL Server'
+  - 'Cosmos DB'
+  - 'Swagger / OpenAPI'
+  - 'Elasticsearch / Kibana'
+  - 'Okta'
+  - 'Exostar'
+  - 'SureScripts'
+  - 'Azure'
+highlights:
+  - 'Owned the full stack of a multi-tenant SaaS e-prescribing platform: React prescribing frontend (creation, review, prior auth, medication history) and Cosmos DB partition-key isolation for practice-level tenants.'
+  - 'Integrated SureScripts for real-time medication history and e-prescribing with production-grade retry logic across transient failures, expired tokens, and partial-write recovery.'
+  - 'Documented every .NET Core Web API endpoint with Swagger / OpenAPI for internal and partner integrations, and shipped Elasticsearch-backed search with Kibana operational dashboards for prescription audit trails.'
+  - 'Implemented Okta + Exostar identity federation satisfying DEA EPCS requirements for controlled substance e-prescribing.'
+metrics:
+  - { label: 'Identity federation', value: 'DEA EPCS-compliant' }
+  - { label: 'Tenant isolation', value: 'Cosmos DB partition key' }
+  - { label: 'Audit trail', value: 'Elasticsearch + Kibana' }
+featured: false
+order: 5
+hero:
+  eyebrow: 'Healthcare · E-Prescribing SaaS'
+  problem: 'Controlled-substance e-prescribing has DEA EPCS requirements that most identity stacks cannot satisfy out of the box, and multi-tenant SaaS billing demands strict per-practice data isolation.'
+  outcome: 'A SaaS platform with DEA EPCS-compliant federated identity, Cosmos DB partition-key isolation per practice, and SureScripts-integrated prescribing across creation, review, prior auth, and medication history.'
+---
+
+## Problem
+
+E-prescribing for controlled substances has hard regulatory floors: DEA EPCS requires multi-factor identity proofing and a federated trust path that most generic identity stacks do not provide. Multi-tenant SaaS adds another floor: per-practice data isolation has to be enforced at the data layer, not just in app code.
+
+## Approach
+
+- **Federated identity for EPCS.** Okta provided the identity envelope, Exostar provided the credential service provider, and the integration satisfied DEA EPCS for controlled-substance prescribing.
+- **Tenant isolation at the partition.** Cosmos DB partition keys carried the practice identifier. Cross-tenant reads were structurally impossible at the data layer, not only filtered in code.
+- **SureScripts integration with retry semantics.** Real-time medication history and e-prescribing flows ran through SureScripts. Retry logic handled transient failures, expired session tokens, and partial-write recovery without producing duplicate prescriptions.
+- **Audit-first observability.** Every prescription event flowed into Elasticsearch with structured fields. Operational dashboards in Kibana surfaced anomalies before they became user-visible incidents.
+
+## Stack
+
+- **Backend:** .NET Core, C#, Entity Framework, .NET Core Web API documented with Swagger / OpenAPI.
+- **Frontend:** React for the prescriber-facing UI.
+- **Data:** SQL Server for transactional state, Cosmos DB for per-tenant prescription data.
+- **Integrations:** SureScripts, Okta, Exostar.
+- **Observability:** Elasticsearch and Kibana.
+- **Cloud:** Azure.
+
+## Outcomes
+
+- Production e-prescribing platform across creation, review, prior auth, and medication history.
+- DEA EPCS satisfied via Okta and Exostar federation.
+- Per-practice data isolation enforced at the partition key, not only in app code.
+- Prescription audit trail searchable in Elasticsearch with Kibana dashboards.
+
+## Lessons
+
+- Regulated identity flows are easier to build correctly the first time than to retrofit.
+- Tenant isolation is a data-layer concern. Anything weaker is a future security review finding.
+- Retry logic on payment-grade and prescription-grade flows is non-negotiable. Designing it in is much cheaper than bolting it on after the first reconciliation incident.

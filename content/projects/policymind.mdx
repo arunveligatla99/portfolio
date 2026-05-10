@@ -1,33 +1,37 @@
 ---
 title: 'PolicyMind'
-tagline: 'Production RAG system on Azure AI Foundry with citation accuracy and latency under hard SLOs, gated by RAGAS evals in CI.'
-role: 'Tech Lead'
-period: '2024 to 2026'
+tagline: 'Production four-agent RAG platform with hybrid retrieval, NLI-based hallucination verification, and CI-enforced RAGAS gates.'
+role: 'Senior AI Engineer · Architect'
+period: 'Dec 2025 to Feb 2026'
 domain: ['ai-ml', 'healthcare', 'enterprise-saas']
 stack:
-  - 'Python'
+  - 'Python 3.11'
+  - 'OpenAI GPT-4o'
+  - 'Qdrant'
+  - 'BM25 + RRF'
+  - 'Cross-Encoder Reranking'
   - 'FastAPI'
-  - 'Azure AI Foundry'
-  - 'GPT-4o'
-  - 'text-embedding-3-large'
-  - 'pgvector'
+  - 'React'
+  - 'PostgreSQL'
+  - 'Langfuse'
+  - 'Docker Compose'
   - 'RAGAS'
   - 'GitHub Actions'
 highlights:
-  - 'Citation accuracy at 92.5 percent measured against a held-out gold set, enforced by a CI gate that fails any PR that regresses the metric.'
-  - 'p95 end-to-end latency under 800ms with a hybrid retrieval pipeline (BM25 + dense recall, cross-encoder rerank).'
-  - 'Test suite of 167 passing tests, including unit, contract, and RAGAS-driven evaluation tests, all gating CI.'
-  - 'Deterministic prompt registry with versioned templates and a replayable trace log, so any production answer can be reconstructed.'
+  - 'Architected a four-agent LangGraph system (Orchestrator, Domain Router, Synthesis, Compliance Guard) with a typed `DiagnosticSession` state object, ReAct-style tool-calling, conditional retry routing, and full execution auditability.'
+  - 'Citation-first hybrid retrieval (Qdrant + BM25 + RRF + cross-encoder rerank) holds 92.5% citation accuracy at p95 under 800ms across the production query mix.'
+  - 'Compliance-guard agent enforces NLI-based hallucination verification with 100% recall on escalation-critical queries, refusing rather than guessing when the retrieved context does not support an answer.'
+  - 'Containerized deployment with Docker, Langfuse tracing for replayable production runs, 167 passing tests, and CI-enforced RAGAS gates: faithfulness ≥ 88%, context recall ≥ 90%, escalation recall = 100%.'
 metrics:
   - { label: 'Citation accuracy', value: '92.5%' }
   - { label: 'p95 latency', value: '< 800ms' }
-  - { label: 'CI-gated tests', value: '167' }
+  - { label: 'Escalation recall', value: '100%' }
 featured: true
-order: 2
+order: 1
 hero:
-  eyebrow: 'RAG · Azure AI Foundry'
-  problem: 'Policy and clinical content cannot be answered with a free-form LLM. Every answer needs citations to the underlying policy, the citations must be accurate, and the system must hold under p95 latency targets.'
-  outcome: 'A grounded answering system with measured citation accuracy, latency under 800ms, and a CI pipeline that refuses to ship a regression.'
+  eyebrow: 'Agentic RAG · Production'
+  problem: 'Policy and clinical content cannot be answered with a free-form LLM. Every claim needs a citation that actually supports it, the system has to refuse rather than guess on escalation-critical queries, and it must hold under p95 latency targets in production.'
+  outcome: 'A four-agent RAG platform with measured 92.5% citation accuracy, p95 under 800ms, 100% escalation recall, and a CI pipeline that refuses to ship a regression.'
 ---
 
 ## Problem
@@ -38,31 +42,36 @@ Clinical and policy content has two non-negotiables: every claim needs a citatio
 
 Treat the RAG pipeline as a regular software system with regular software guarantees: contracts, tests, and CI gates.
 
-- **Hybrid retrieval.** BM25 for lexical recall on policy ids and proper nouns, dense vectors for semantic recall, cross-encoder rerank for the top of the funnel. Each stage is independently swappable and benchmarked.
-- **Grounded generation.** GPT-4o with a strict citation schema, a refusal path when the retrieved context does not support an answer, and a prompt registry that versions every template.
-- **Continuous evaluation.** RAGAS metrics (faithfulness, answer relevance, context precision, context recall) on a curated gold set, run on every PR. A regression on any metric fails CI.
-- **Replayability.** Every production trace is logged with the prompt version, retrieval candidates, scores, and final answer, so any output can be reconstructed and audited.
+- **Four-agent LangGraph orchestration.** `Orchestrator` plans the run, `Domain Router` picks the retrieval strategy and tool set, `Synthesis` produces the cited answer, and `Compliance Guard` validates citations against the source via NLI before the response leaves the system. State is a typed `DiagnosticSession` object, transitions are auditable, and retries are conditional rather than unbounded.
+- **Citation-first hybrid retrieval.** Qdrant for dense recall, BM25 for lexical recall on policy ids and proper nouns, Reciprocal Rank Fusion to combine, and a cross-encoder rerank for the top of the funnel. Each stage is independently swappable and benchmarked.
+- **Refusal as a first-class outcome.** The compliance-guard agent enforces NLI-based hallucination verification. If retrieved context does not support an answer, the system escalates rather than guesses. Escalation recall is measured at 100% on the held-out set.
+- **Replayable, traced runs.** Every production session is logged through Langfuse with the prompt version, retrieval candidates, scores, and final answer. Any output can be reconstructed for audit.
+- **CI-gated evaluations.** RAGAS metrics run on every PR against a frozen gold set. Thresholds: faithfulness ≥ 88%, context recall ≥ 90%, escalation recall = 100%. A regression on any threshold fails CI.
 
 ## Stack
 
-- **API:** Python with FastAPI.
-- **Models:** Azure OpenAI GPT-4o for generation, text-embedding-3-large for retrieval.
-- **Index:** pgvector with HNSW.
-- **Eval:** RAGAS, custom faithfulness checker over citation spans.
-- **CI:** GitHub Actions with a dedicated eval job that uses a frozen gold set.
-- **Tracing:** OpenTelemetry, vendor-neutral; logs replayable.
+- **API:** Python 3.11, FastAPI.
+- **Frontend:** React.
+- **Models:** OpenAI GPT-4o for orchestration and synthesis, `text-embedding-3-large` for retrieval.
+- **Index:** Qdrant with HNSW.
+- **Eval:** RAGAS, custom NLI-based faithfulness checker over citation spans.
+- **Observability:** Langfuse traces, replayable end-to-end.
+- **CI:** GitHub Actions, eval job uses a frozen gold set committed alongside code.
+- **Deployment:** Docker Compose.
 
 ## Outcomes
 
-- 92.5 percent citation accuracy on the held-out gold set.
-- p95 end-to-end latency under 800ms with the hybrid pipeline.
+- 92.5% citation accuracy on the held-out gold set.
+- p95 end-to-end latency under 800ms with the four-agent pipeline.
+- 100% escalation recall: the system never tries to answer when retrieval fails.
 - 167 passing tests, including RAGAS evals, all gating CI.
-- Zero shipped regressions on the citation metric over the measurement window because the gate prevented them.
+- Zero shipped regressions on the citation metric over the measurement window because the gates prevented them.
 
 ## Lessons
 
 - Treat the eval set as production data: version it, review it like code, never overwrite it.
 - Faithfulness is a different metric from "looks right". A model that paraphrases the source confidently can still pass casual review and fail the metric.
 - A refusal path is cheaper than a wrong answer with a citation.
+- Build agentic systems by wiring deterministic state machines around the LLM, not by handing the LLM control of the loop.
 
-{/* TODO: ARUN COPY: pull a representative trace screenshot or system diagram if approved for public use.  */}
+{/* TODO: ARUN COPY: pull a representative trace screenshot or system diagram if approved for public use. */}

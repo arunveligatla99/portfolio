@@ -1,60 +1,70 @@
 ---
 title: 'CollectMind'
-tagline: 'Agentic collection policy engine that turns plain-language collection rules into a deterministic, auditable LangGraph workflow.'
+tagline: 'Agentic vehicle telemetry policy engine. Four-node LangGraph validates policies against COVESA VSS and deploys behind a confidence gate.'
 role: 'Lead Engineer'
 period: '2025'
-domain: ['ai-ml', 'fintech']
+domain: ['ai-ml', 'platform']
 stack:
   - 'Python'
   - 'LangGraph'
+  - 'GPT-4o'
   - 'FastAPI'
   - 'PostgreSQL'
+  - 'TimescaleDB'
   - 'Redis'
-  - 'OpenAI'
+  - 'Apache Kafka'
+  - 'Isolation Forest'
+  - 'RAGAS'
+  - 'COVESA VSS'
 highlights:
-  - 'Plain-language collection policies compile into a typed LangGraph state machine where every transition is logged with the rule that triggered it.'
-  - 'Built a policy DSL with a small set of vetted operators so the agent cannot invent actions outside the registry.'
-  - 'Deterministic replay: the same input plus the same policy version always produces the same plan, even when the underlying LLM is non-deterministic.'
-  - 'Operator-facing audit trail explains, in human English, why each account took the path it took.'
+  - 'Four-node LangGraph state machine (Orchestrator, Generator, Validator, Deployer) autonomously generates, validates, versions, and deploys vehicle telemetry collection policies on a confidence-gated path.'
+  - 'Validator node checks every generated policy against COVESA VSS plus per-ECU capability constraints; only policies that pass both gates reach the immutable PostgreSQL registry.'
+  - 'Streaming ingest on Apache Kafka with Isolation Forest anomaly detection, Redis hot store, and TimescaleDB cold store handles fleet-scale telemetry without losing recent windows on the hot path.'
+  - 'CI-enforced RAGAS gates block PRs on VSS pass rate and schema completeness, so a regression cannot ship even if the LLM regresses upstream.'
 metrics:
-  - { label: 'Action registry', value: 'closed set' }
-  - { label: 'Replay determinism', value: 'per policy version' }
-featured: false
+  - { label: 'Policy validation', value: 'COVESA VSS + ECU constraints' }
+  - { label: 'Deployment gate', value: 'confidence-scored' }
+  - { label: 'CI gates', value: 'VSS pass rate, schema completeness' }
+featured: true
 order: 3
 hero:
-  eyebrow: 'Agentic · Fintech'
-  problem: 'Collections teams need to evolve policies frequently, but every change must be auditable, reversible, and consistent across thousands of accounts.'
-  outcome: 'A policy engine where humans write rules in plain language, the system compiles them into a deterministic LangGraph plan, and every account decision is auditable.'
+  eyebrow: 'Agentic · Vehicle Telemetry'
+  problem: 'Fleet operators need to evolve telemetry collection policies frequently across heterogeneous ECUs, but every policy change must be auditable, reversible, and validated against the standard before it ships to vehicles.'
+  outcome: 'A four-node agentic engine where humans state intent, the system compiles a typed policy, validates it against COVESA VSS plus the target ECU capability set, versions it in an immutable registry, and deploys behind a confidence gate.'
 ---
 
 ## Problem
 
-Collections policy lives at an awkward intersection: the rules change weekly, the rules are written by analysts not engineers, and the rules have to be auditable down to a single account decision. A pure LLM agent is too non-deterministic; a pure rules engine is too rigid for the way analysts actually want to write rules.
+Vehicle telemetry policy lives at an awkward intersection: the rules change frequently, the rules have to be validated against an industry standard (COVESA VSS) and the specific ECU capability set on each vehicle, and every policy decision has to be auditable down to the version that produced it. A pure LLM agent is too non-deterministic; a pure rules engine is too rigid for the way operators want to express intent.
 
 ## Approach
 
-Use the LLM only at the boundary, never in the loop.
+Use the LLM at the boundary, never in the deployment loop.
 
-- **Compile, do not interpret.** Plain-language rules are compiled, once, into a typed LangGraph state machine. The LLM does not run on every account; it runs once per policy version.
-- **Closed action registry.** The compiler can only emit nodes from a vetted registry. If a rule asks for something outside the registry, the compile fails loudly rather than the agent improvising.
-- **Deterministic replay.** The state machine is a pure function of inputs and policy version. Same inputs plus same policy version always produces the same plan.
-- **Audit trail in plain English.** Every decision is annotated with the rule that triggered it, rendered into a human-readable timeline for ops review.
+- **Four-node LangGraph state machine.** `Orchestrator` plans, `Generator` produces a typed policy, `Validator` checks it against COVESA VSS and the target ECU capabilities, and `Deployer` ships it behind a confidence gate. Each node is a checkpoint with rollback semantics.
+- **Compile, do not interpret.** Policies are compiled, validated, and versioned in an immutable PostgreSQL registry. The vehicle never executes a free-form LLM output. It executes a versioned policy that has passed the gates.
+- **Confidence-gated deployment.** Each generated policy carries a confidence score. Below the threshold, the policy is queued for human review rather than auto-deployed.
+- **Streaming ingest, two-tier store.** Telemetry flows in over Kafka, lands in Redis for the hot window, ages into TimescaleDB for the cold window. Isolation Forest watches for anomalies in real time so a misbehaving policy is caught before it becomes a trend.
+- **CI gates.** RAGAS-style automated checks on every PR: VSS pass rate, schema completeness, and policy round-trip stability. A regression on any gate fails the build.
 
 ## Stack
 
-- **Compiler / planner:** Python, LangGraph, OpenAI for the natural-language to typed-DSL step.
-- **Runtime:** FastAPI, Postgres for state, Redis for distributed locks.
-- **Observability:** structured logs with rule ids, OpenTelemetry traces.
+- **Agent / planner:** Python, LangGraph, GPT-4o for the natural-language to typed-policy step.
+- **Runtime:** FastAPI, PostgreSQL for the policy registry, TimescaleDB for telemetry cold store, Redis for hot windows, Apache Kafka for ingest.
+- **ML:** Isolation Forest for unsupervised telemetry anomaly detection.
+- **Observability:** Structured logs with policy version ids, tracing across the four-node graph.
 
 ## Outcomes
 
-- Analysts ship policy changes without engineering involvement.
-- Every account action is auditable down to the rule that caused it.
-- Policy regressions are caught at compile time, not runtime.
+- Operators evolve telemetry policy without engineering involvement on the happy path.
+- Every deployed policy is validated against COVESA VSS and the target ECU before it leaves the registry.
+- Confidence-gated deployment means low-confidence outputs queue for human review rather than auto-shipping.
+- CI gates catch regressions at compile time, not in the field.
 
 ## Lessons
 
-- The hardest part of an agentic system is not the agent. It is the registry of safe operations.
+- The hardest part of an agentic system is not the agent. It is the registry of safe, vetted operations.
 - Determinism per policy version is a far stronger guarantee than "we use temperature 0".
+- Validation against an industry standard and the device-specific capability set is non-negotiable for any system that ships to fleet hardware.
 
-{/* TODO: ARUN COPY: confirm framing and any additional metrics if cleared for public use.  */}
+{/* TODO: ARUN COPY: confirm framing and add any anonymized metrics if cleared for public use. */}

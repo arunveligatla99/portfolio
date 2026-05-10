@@ -7,11 +7,11 @@ describe('projects loader', () => {
     const slugs = projects.map((p) => p.slug).sort();
     expect(slugs).toEqual(
       [
+        'agentix-erp',
         'collectmind',
-        'loanpulse',
-        'nemo-trizetto',
+        'ehr-migration',
+        'nemorx',
         'policymind',
-        'verax-erp',
       ].sort(),
     );
   });
@@ -30,12 +30,12 @@ describe('projects loader', () => {
   });
 
   it('parses frontmatter into typed metrics', async () => {
-    const verax = await getProject('verax-erp');
-    expect(verax).not.toBeNull();
-    expect(verax!.metrics?.[0]).toHaveProperty('label');
-    expect(verax!.metrics?.[0]).toHaveProperty('value');
-    expect(verax!.stack).toContain('C# / .NET 10');
-    expect(verax!.domain).toContain('enterprise-saas');
+    const agentix = await getProject('agentix-erp');
+    expect(agentix).not.toBeNull();
+    expect(agentix!.metrics?.[0]).toHaveProperty('label');
+    expect(agentix!.metrics?.[0]).toHaveProperty('value');
+    expect(agentix!.stack).toContain('.NET 10');
+    expect(agentix!.domain).toContain('enterprise-saas');
   });
 
   it('returns null for unknown slug', async () => {

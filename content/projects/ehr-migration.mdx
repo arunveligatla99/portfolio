@@ -1,0 +1,61 @@
+---
+title: 'EHR Data Migration'
+tagline: 'Multi-system EHR migration to a unified platform. Hundreds of practices, millions of patient records, zero data loss across all production cutovers.'
+role: 'Lead Engineer'
+period: 'Apr 2021 to Mar 2025'
+domain: ['healthcare', 'platform']
+stack:
+  - '.NET 6'
+  - 'C#'
+  - 'Entity Framework'
+  - 'SQL Server 2022'
+  - 'SSIS'
+  - 'ETL'
+  - 'Azure'
+  - 'xUnit'
+highlights:
+  - 'Translated complex clinical domain requirements into scalable migration workflows across hundreds of podiatry practices and millions of patient records.'
+  - 'Designed ETL workflows that normalize patient, clinical, and billing data across three structurally incompatible source EHR schemas into a single target model.'
+  - 'Built automated validation pipelines to eliminate manual spot-checking, so cutovers run on schedule rather than blocking on human review.'
+  - 'Zero data loss across every production cutover during the program.'
+metrics:
+  - { label: 'Patient records migrated', value: 'millions' }
+  - { label: 'Source systems unified', value: 'three' }
+  - { label: 'Production data loss', value: 'zero' }
+featured: false
+order: 4
+hero:
+  eyebrow: 'Healthcare · Data Platform'
+  problem: 'Three structurally incompatible EHR systems, hundreds of practices, millions of records, and clinical workflows that cannot tolerate even a small data loss event during cutover.'
+  outcome: 'A migration platform with normalized ETL across all three sources, automated validation pipelines, and a perfect zero-data-loss record across every production cutover.'
+---
+
+## Problem
+
+Migrating clinical data is unforgiving. Every record matters: a missing immunization is a compliance event, a mis-mapped allergy is a safety event, a dropped billing line is a revenue event. The program covered three structurally incompatible source EHR systems, hundreds of practices, and millions of patient records, with all cutovers run against live clinical workflows.
+
+## Approach
+
+- **Schema normalization first, transformations second.** Every source system was first lifted into a normalized intermediate model, with a reviewable mapping doc per source. Transformations to the target ran off the intermediate, not the source, so a target-side change did not require re-mapping every source.
+- **Automated validation pipelines.** Every cutover ran a multi-stage validator: row counts, referential integrity, domain-specific clinical and billing checks, and per-practice spot reconciliations. Validation failures blocked the cutover; manual spot-checking was off the path.
+- **Replayable migrations.** Every job carried a stable idempotency key. A failed segment could be retried without producing duplicates.
+- **Per-practice cutovers.** Migrations ran per practice, not as a single big-bang, so a problem in one practice did not stall the rest of the program.
+
+## Stack
+
+- **Runtime:** .NET 6, C#, Entity Framework, SSIS for the heavier batch flows.
+- **Data:** SQL Server 2022 source and target.
+- **Cloud:** Azure for orchestration and storage.
+- **Tests:** xUnit for the transformation layer, integration tests against representative practice fixtures.
+
+## Outcomes
+
+- Hundreds of practices migrated, millions of patient records moved.
+- Zero data loss across every production cutover.
+- Cutovers ran on schedule because validation was automated, not manual.
+
+## Lessons
+
+- The cheapest way to keep a migration honest is to validate the result against the source rather than against the assumed mapping.
+- Idempotent jobs and per-practice cutovers turn a one-shot risk event into a long stream of small, recoverable ones.
+- The intermediate normalized model is worth the time. It pays for itself the first time the target schema changes.

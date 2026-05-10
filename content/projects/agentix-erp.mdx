@@ -1,0 +1,74 @@
+---
+title: 'Agentix ERP'
+tagline: 'Multi-tenant SaaS ERP with a 10-step autonomous agentic onboarding workflow, signed portal tokens, and 162 CI-gated tests.'
+role: 'Self-Directed Production-Grade Build'
+period: '2026'
+domain: ['enterprise-saas', 'platform', 'ai-ml']
+stack:
+  - '.NET 10'
+  - 'C# / ASP.NET Core'
+  - 'Angular 17'
+  - 'TypeScript'
+  - 'MySQL 8'
+  - 'Amazon Bedrock'
+  - 'Amazon SES'
+  - 'Hangfire'
+  - 'Docker Compose'
+  - 'GitHub Actions'
+  - 'xUnit'
+highlights:
+  - '10-step autonomous onboarding agent (Orchestrator, DocumentParser, HelpTextGenerator, Provisioner) parses Word and PDF intake forms via Amazon Bedrock with a deterministic rule-based fallback, then provisions the tenant end-to-end without human intervention.'
+  - 'Zero-migration custom column engine writes per-tenant column definitions to a JSON settings store with ReaderWriterLockSlim concurrency, so tenants extend any first-class entity at runtime without schema migrations.'
+  - 'External approval flows are gated by HMAC-SHA256 signed portal tokens with a 120-hour expiry and non-reusable nonce, so a leaked link cannot be replayed.'
+  - 'CI-enforced GitHub Actions pipeline (xUnit + PowerShell) blocks PRs on 114 unit tests and 48 end-to-end API tests with full per-tenant isolation.'
+metrics:
+  - { label: 'Onboarding agent steps', value: '10 (autonomous)' }
+  - { label: 'CI-gated tests', value: '114 unit + 48 e2e' }
+  - { label: 'Portal token policy', value: 'HMAC-SHA256, 120h, single-use' }
+featured: true
+order: 2
+hero:
+  eyebrow: 'Multi-Tenant SaaS ERP'
+  problem: 'Most ERP platforms either force every tenant into the same schema or hide a slow custom-fields layer that cannot be queried efficiently. Onboarding is then a manual, multi-day integrator workflow.'
+  outcome: 'A platform where any tenant can extend any entity at runtime with the same query path as core columns, and a 10-step agent that reads an intake form and ships a configured environment without a human integrator.'
+---
+
+## Problem
+
+Greenfield ERP rebuild with three constraints I gave myself up front:
+
+1. Single shared cluster, no per-tenant database sprawl, full row-level isolation enforced at the data layer rather than only in app code.
+2. Custom columns must be queryable with the same indices and predicate pushdown as core columns, not stuck behind a slow EAV table.
+3. Tenant onboarding must reach a usable, configured environment from an intake form, without a human integrator on the path.
+
+## Approach
+
+Three load-bearing subsystems, designed to compose:
+
+1. **Tenant routing.** A connection middleware resolves tenant context per request, swaps the active schema, and short-circuits cross-tenant reads at the SQL layer rather than relying only on app-level filters.
+2. **Zero-migration custom column engine.** Tenant-defined columns are stored in a JSON settings registry with `ReaderWriterLockSlim` concurrency. A typed query builder compiles tenant DSL into parameterized SQL, so a tenant adding a `priority_score` column gets the same execution plan as a first-class field.
+3. **10-step onboarding agent.** A four-actor LangGraph-style state machine (`Orchestrator`, `DocumentParser`, `HelpTextGenerator`, `Provisioner`) reads uploaded Word and PDF intake forms via Amazon Bedrock, with a deterministic rule-based fallback path so the system stays useful when the model is unavailable. Admin credentials are crypto-random and delivered out-of-band via Amazon SES. External approvers receive HMAC-SHA256 signed portal tokens with a 120-hour expiry and a non-reusable nonce.
+
+## Stack
+
+- **Backend:** .NET 10, C#, ASP.NET Core Web API, Entity Framework Core, Hangfire for background jobs.
+- **Frontend:** Angular 17 with signals, TypeScript, no NgRx.
+- **Data:** MySQL 8 with JSON settings tables and generated indexes.
+- **Cloud:** AWS (Bedrock for the document parser, SES for transactional email).
+- **Containerization:** Docker Compose for local and CI parity.
+- **CI:** GitHub Actions pipeline runs xUnit and PowerShell smoke tests.
+
+## Outcomes
+
+- 10-step agent ships a configured tenant environment from an intake form, with a deterministic fallback when the model is unavailable.
+- Zero-migration custom columns: tenants extend entities at runtime, indexed at the same tier as first-class fields.
+- 114 unit tests and 48 end-to-end API tests run on every PR with full tenant isolation, gating merges.
+- Portal tokens are signed, time-bound, and single-use, so a leaked approval link cannot be replayed.
+
+## Lessons
+
+- A typed query builder over JSON columns is much faster to build than a full ORM extension, and it pays for itself the first time you have to debug a slow tenant query.
+- An agentic workflow earns its keep when the agent is constrained to a small registry of vetted operations. The hard work is the registry, not the model.
+- Per-tenant feature flags removed entire categories of release risk. A canary tenant pattern caught two regressions before a paying tenant saw them.
+
+{/* TODO: ARUN COPY: confirm tenant scale numbers when ready, and any public demo or repo link. */}
