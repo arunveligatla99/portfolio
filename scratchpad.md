@@ -1,9 +1,60 @@
 # FOR ARUN'S REVIEW
 
-> Top-of-file summary. Generated at the end of Phase F. Below this section,
-> the full decision/assumption/deviation log lives under "Decisions" etc.
+> Top-of-file summary. Last refreshed after the post-resume content sync.
+> Below this section, the full decision/assumption/deviation log lives under
+> "Decisions" etc.
 
-## What was built
+## Current state (as of latest commit)
+
+- `main` is clean. Last 4 commits: spec drift sync, positioning sync, content overhaul, T-023..T-026 ship config.
+- Real resume PDF (354 KB) is at `public/arun-veligatla-resume.pdf`.
+- 5 project case studies live: PolicyMind, Agentix ERP, CollectMind, EHR Migration, NemoRx. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`.
+- Positioning aligned to the resume: "Senior AI Engineer" everywhere, BS added, phone in `lib/seo.ts` JSON-LD, ModMed framed as "2021 to present".
+- 45 vitest cases green, 11 Playwright cases green, axe zero violations, build green.
+- **Next blocker is on you**: domain decision + Vercel hookup. Runbook is `DEPLOY.md` at the repo root.
+
+## Updates since the autonomous build
+
+**3 commits landed after the initial Phase A–F sweep**, plus a docs commit and the deploy runbook:
+
+1. `feat(content): align project case studies with real resume`
+   - Renamed `verax-erp` → `agentix-erp`. Stack rewritten to AWS Bedrock + SES + .NET 10 + Angular 17 + MySQL 8 with the 10-step onboarding agent and HMAC-SHA256 portal tokens (114 unit + 48 e2e CI gates).
+   - Sharpened PolicyMind: four named agents (Orchestrator, Domain Router, Synthesis, Compliance Guard), Qdrant + BM25 + RRF + cross-encoder, 100% escalation recall, faithfulness ≥ 88%, context recall ≥ 90%, Langfuse tracing, period Dec 2025 to Feb 2026.
+   - Rewrote CollectMind from "collection policy engine" (wrong) to "vehicle telemetry policy engine" (real): 4-node LangGraph, COVESA VSS validation, Kafka + TimescaleDB + Redis + Isolation Forest, RAGAS CI gates.
+   - Dropped `loanpulse.mdx` and `nemo-trizetto.mdx` (not on resume).
+   - Added `ehr-migration.mdx` (TRAKnet/Sammy/Exscribe to EMA, millions of records, zero data loss) and `nemorx.mdx` (multi-tenant SaaS e-prescribing, Cosmos DB partition isolation, DEA EPCS via Okta + Exostar).
+   - Added 308 redirects for old slugs in both `next.config.mjs` and `vercel.json`.
+
+2. `feat(positioning): re-frame as Senior AI Engineer per real resume`
+   - Hero, footer, layout/home/about/resume metadata, JSON-LD `jobTitle`, product spec all reflect "Senior AI Engineer · Multi-Agent Orchestration · LLMOps".
+   - About page: BS in CSE from Jawaharlal Nehru Technological University added; three-project arc summarized; ModMed framed as "2021 to present".
+   - Resume page: phone (201) 381-8046 added; Education section now lists both MS and BS.
+   - Timeline rewritten from the real resume with accurate dates per role.
+   - SkillsSummary (home) and SkillsMatrix (about) regrouped to match the resume's eight sections exactly: Agentic AI / GenAI, Agentic Safety & LLM Security, Backend, Frontend, Cloud & Deployment, Data / Streaming, ML / Data Science, Observability & Practices.
+   - `lib/seo.ts`: jobTitle, telephone, alumniOf array (both schools), `knowsAbout` reordered around agentic skills.
+   - Playwright e2e: about heading regex updated to match new `<h1>`.
+
+3. `docs: sync specs + scratchpad to current project slug set`
+   - 01-product-spec, 02-technical-spec, 03-design-spec, 05-quality-spec, 07-verification-report all carrying stale slug references were brought current to: agentix-erp, policymind, collectmind, ehr-migration, nemorx.
+   - 04-task-breakdown left as historical record (tasks completed under their original names).
+
+Plus: `docs: add DEPLOY.md runbook for shipping to Vercel` (separate commit). Ordered checklist with env-var-to-source mapping, DNS records, Resend domain verification, OG inspectors, lhci command, schema validation, sitemap ping, functional smoke, and a rollback note. Cross-links README rather than duplicating.
+
+## Remaining `TODO: ARUN COPY` markers
+
+Three left, all in MDX, all invisible at runtime:
+
+| File | Line | Ask |
+| --- | --- | --- |
+| `content/projects/agentix-erp.mdx` | 74 | Confirm tenant scale numbers; add public demo or repo link if cleared. |
+| `content/projects/policymind.mdx` | 77 | Add a representative trace screenshot or system diagram if cleared. |
+| `content/projects/collectmind.mdx` | 70 | Confirm framing; add anonymized metrics if cleared. |
+
+`grep -rn "TODO: ARUN COPY" content/` reproduces the list.
+
+EHR Migration and NemoRx ship clean (no markers, all numbers from the resume).
+
+## What was built (initial sweep)
 
 A complete personal portfolio site, built spec-first across six phases (A–F), 26 atomic tasks, all checked off in `specs/04-task-breakdown.md`.
 
@@ -42,11 +93,11 @@ Shipping config:
 
 1. **`RESEND_API_KEY` not provided.** `/api/contact` returns `{ ok: true, stub: true }` and logs the payload server-side. Form UI shows "(Stub mode: no email sent.)". Set the env var on Vercel to flip to real delivery.
 2. **`NEXT_PUBLIC_SITE_URL`** defaults to `https://arunveligatla.com`. Used in sitemap, canonicals, OG URLs, JSON-LD. Change in Vercel env if the domain is different. No code change needed.
-3. **Resume PDF is a 0-byte placeholder** at `public/arun-veligatla-resume.pdf`. The HTML mirror at `/resume` renders the canonical content for crawlers; you'll want to drop the real PDF on top.
-4. **Project metrics**: PolicyMind uses the verbatim numbers from your prompt (92.5%, p95 < 800ms, 167 tests). Every other project ships placeholder framing flagged in source with `{/* TODO: ARUN COPY */}` markers, grep-able from the repo root: `grep -r "TODO: ARUN COPY" content/`.
+3. ~~**Resume PDF is a 0-byte placeholder**~~ **Resolved.** Real resume PDF (354 KB) committed at `public/arun-veligatla-resume.pdf`. HTML mirror at `/resume` updated to match (phone, BS row in Education).
+4. **Project content**: All 5 case studies (PolicyMind, Agentix ERP, CollectMind, EHR Migration, NemoRx) now reflect the real resume. Three `{/* TODO: ARUN COPY */}` markers remain (table above) for optional polish; site ships fine with them.
 5. **Lighthouse CI** is documented in the README but not run inside GH Actions. Headless Chromium under sandboxed CI is brittle; the README has the manual `lhci` command.
 6. **Cricket and trading copy** is mine, written in your voice from the prompt brief. Re-tone if it doesn't feel like you.
-7. **About page timeline framing**: "open to senior backend, full-stack, and AI roles" is used; ModMed RIF is not mentioned anywhere on the public site (enforced by the content guard test).
+7. **About page timeline framing**: "open to senior AI, backend, and full-stack roles" is used; ModMed framed as "2021 to present" per resume; RIF is not mentioned anywhere on the public site (enforced by the content guard test).
 8. **Writing scaffold ships with `hello-world.mdx` flagged `draft: true`**, so the public listing renders the empty state. The route is fully exercised by the test fixture. Delete once a real post lands.
 
 ## Deviations from the spec (and why)
@@ -61,22 +112,20 @@ Shipping config:
 
 ## Known gaps (in priority order)
 
-1. **Real resume PDF.** The placeholder is 0 bytes. Drop the real file at `public/arun-veligatla-resume.pdf` before going live.
-2. **Confirm remaining placeholders in `content/projects/` (Agentix ERP, PolicyMind, CollectMind).** Search `TODO: ARUN COPY` and resolve. EHR Migration and NemoRx are clean.
-3. **Domain.** `NEXT_PUBLIC_SITE_URL` is `https://arunveligatla.com` placeholder. Decide and set on Vercel.
-4. **A real first writing post.** Optional, but the empty state is currently the listing. Adding even one technical note (e.g., "Why we run RAGAS in CI") would give the page a reason to exist publicly.
-5. **OG images preview**. The `/og` route renders correctly under `next dev` and `next start`. Validate per-page OG cards against the LinkedIn / Twitter / Slack post inspector once deployed.
-6. **Lighthouse smoke output**. Run `lhci autorun` against the deployed site once and paste the scores back into `specs/07-verification-report.md`.
-7. **No favicon beyond `app/icon.svg`**. SVG works in modern browsers; iOS / Safari may want a PNG fallback for home-screen icons. Easy to add later.
+1. **Domain decision + Vercel hookup. This is the only ship blocker, and it is on you, not the codebase.** Once the domain is picked, follow `DEPLOY.md` end-to-end. `NEXT_PUBLIC_SITE_URL` defaults to `https://arunveligatla.com` and is the placeholder used by sitemap, canonicals, OG, and JSON-LD; flip it on Vercel after DNS lands.
+2. **Three remaining `TODO: ARUN COPY` markers** in `content/projects/` (Agentix ERP, PolicyMind, CollectMind). See the table above. Optional; site ships fine with them in place.
+3. **A real first writing post.** Optional. Empty state is currently the listing. Even one technical note ("Why we run RAGAS in CI", "What broke when we wired Compliance Guard") gives the page a reason to exist publicly.
+4. **OG card preview validation.** The `/og` route renders under `next dev` and `next start`. Validate per-page OG cards against LinkedIn / X / Slack inspectors once deployed (steps in `DEPLOY.md` § 7).
+5. **Lighthouse smoke against production.** Run `lhci autorun` after deploy and paste the four scores into `specs/07-verification-report.md` under a new "Lighthouse (production)" subsection.
+6. **No favicon beyond `app/icon.svg`.** SVG works in modern browsers; iOS / Safari home-screen wants a PNG fallback. Easy to add later, not a blocker.
 
 ## Recommended next steps
 
-1. **Land the placeholders.** Resume PDF, real project numbers, domain decision.
-2. **Push to `main`, point Vercel at the repo.** First deploy should be green based on the green CI matrix.
-3. **Set the env vars on Vercel:** `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO_EMAIL`. Without them the site still works; the contact form just stays in stub mode.
-4. **Send the URL to LinkedIn, GitHub profile, and a couple of recruiters.** The site is now the recruiter funnel; treat it like one.
-5. **Add a writing post when a real one is ready.** The pipeline is built, indexed, sitemapped, and SEO-tagged.
-6. **Optional: set up Vercel Speed Insights and Vercel Analytics dashboards.** Both are wired in `app/layout.tsx`; you just need to enable them in the Vercel project.
+1. **Pick the domain. Then follow `DEPLOY.md`.** That runbook is the canonical path: GitHub push → Vercel hookup → env vars → first deploy on `*.vercel.app` → DNS → redeploy with final canonical URL → post-deploy validation.
+2. **(Optional) Land the three `TODO: ARUN COPY` markers** before flipping DNS, so the first crawl indexes the final copy.
+3. **Send the production URL to LinkedIn, the GitHub profile, and a couple of targeted recruiter conversations.** The site is now the recruiter funnel; treat it like one.
+4. **Add a writing post when one is ready.** Pipeline is built, indexed, sitemapped, and SEO-tagged.
+5. **Optional: enable Vercel Speed Insights and Vercel Analytics dashboards.** Both are already wired in `app/layout.tsx`; flip them on in the Vercel project.
 
 ---
 
