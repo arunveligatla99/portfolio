@@ -50,11 +50,11 @@
 │   └── *.test.tsx
 ├── content/
 │   ├── projects/
-│   │   ├── verax-erp.mdx
+│   │   ├── agentix-erp.mdx
 │   │   ├── policymind.mdx
 │   │   ├── collectmind.mdx
-│   │   ├── loanpulse.mdx
-│   │   └── nemo-trizetto.mdx
+│   │   ├── ehr-migration.mdx
+│   │   └── nemorx.mdx
 │   └── writing/
 │       └── _placeholder.mdx
 ├── lib/
@@ -88,7 +88,7 @@
 ```ts
 interface ProjectFrontmatter {
   slug: string;               // URL slug, also filename
-  title: string;              // "VERAX ERP Platform"
+  title: string;              // "Agentix ERP"
   tagline: string;            // one-line, ≤ 90 chars
   role: string;               // "Self-directed greenfield build"
   period: string;             // "2024 – present"

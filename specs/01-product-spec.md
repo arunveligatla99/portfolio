@@ -15,7 +15,7 @@ The site sells **proof, not adjectives**: every claim ties to a metric, a repo, 
 
 ## Goals
 - Convert a recruiter skim into a contact (form, email, or LinkedIn DM) within one screen of the homepage.
-- Give a panelist enough technical depth on the featured projects (VERAX, PolicyMind, CollectMind, LoanPulse, Nemo TriZetto) to walk into an interview already informed.
+- Give a panelist enough technical depth on the featured projects (PolicyMind, Agentix ERP, CollectMind, EHR Migration, NemoRx) to walk into an interview already informed.
 - Surface H-1B / I-140 status without making it the lead, so it answers the question without prompting it.
 - Keep an authoring path open for writing (MDX), so the site can grow with a blog over time without rework.
 

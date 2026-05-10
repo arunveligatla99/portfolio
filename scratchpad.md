@@ -62,7 +62,7 @@ Shipping config:
 ## Known gaps (in priority order)
 
 1. **Real resume PDF.** The placeholder is 0 bytes. Drop the real file at `public/arun-veligatla-resume.pdf` before going live.
-2. **Real project metrics on VERAX, CollectMind, LoanPulse, Nemo TriZetto.** Search `TODO: ARUN COPY` in `content/projects/` and replace with cleared numbers.
+2. **Confirm remaining placeholders in `content/projects/` (Agentix ERP, PolicyMind, CollectMind).** Search `TODO: ARUN COPY` and resolve. EHR Migration and NemoRx are clean.
 3. **Domain.** `NEXT_PUBLIC_SITE_URL` is `https://arunveligatla.com` placeholder. Decide and set on Vercel.
 4. **A real first writing post.** Optional, but the empty state is currently the listing. Adding even one technical note (e.g., "Why we run RAGAS in CI") would give the page a reason to exist publicly.
 5. **OG images preview**. The `/og` route renders correctly under `next dev` and `next start`. Validate per-page OG cards against the LinkedIn / Twitter / Slack post inspector once deployed.

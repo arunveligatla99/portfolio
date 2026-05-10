@@ -50,7 +50,7 @@
 
 ## Test coverage targets
 - ≥ 25 vitest tests across primitives, header, footer, hero, contact form, MDX loaders.
-- Playwright covers `/`, `/projects`, `/projects/verax-erp`, `/about`, `/contact` with axe on each.
+- Playwright covers `/`, `/projects`, `/projects/agentix-erp`, `/projects/policymind`, `/projects/collectmind`, `/about`, `/contact`, `/resume`, `/writing` with axe on each.
 
 ## Content quality gates
 - **No em dash** anywhere in source. Enforced by a custom Vitest test that walks `content/**/*.mdx` and `app/**/*.tsx` and fails on `—`.

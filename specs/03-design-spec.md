@@ -117,8 +117,8 @@ One shadow only (`shadow-sm`), used on hover states for cards. Otherwise no shad
 ├──────────────────────────────────────────────────┤
 │   FEATURED WORK                                  │
 │   ┌────────┐ ┌────────┐ ┌────────┐               │
-│   │ VERAX  │ │ Policy │ │ Loan   │               │
-│   │ ERP    │ │ Mind   │ │ Pulse  │               │
+│   │ Policy │ │ Agentix│ │Collect │               │
+│   │ Mind   │ │ ERP    │ │ Mind   │               │
 │   └────────┘ └────────┘ └────────┘               │
 │   → all projects                                 │
 ├──────────────────────────────────────────────────┤
@@ -148,7 +148,7 @@ One shadow only (`shadow-sm`), used on hover states for cards. Otherwise no shad
 ### `/projects/[slug]` (case study)
 ```
 ┌──────────────────────────────────────────────────┐
-│ eyebrow: AI / RAG · 2024 – 2026                  │
+│ eyebrow: Agentic RAG · Production                │
 │ PolicyMind                                       │
 │ One-line tagline.                                │
 │ ┌──── metrics row ────┐                          │

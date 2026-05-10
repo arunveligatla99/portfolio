@@ -26,10 +26,10 @@ Route (app)                              Size     First Load JS
 ├ ƒ /og                                  148 B           106 kB
 ├ ○ /projects                            15.4 kB         131 kB
 ├ ● /projects/[slug]                     181 B           109 kB
-├   ├ /projects/verax-erp
 ├   ├ /projects/policymind
+├   ├ /projects/agentix-erp
 ├   ├ /projects/collectmind
-├   └ [+2 more paths]
+├   └ [+2 more paths]   # ehr-migration, nemorx
 ├ ○ /resume                              181 B           109 kB
 ├ ○ /robots.txt                          0 B                0 B
 ├ ○ /sitemap.xml                         0 B                0 B
