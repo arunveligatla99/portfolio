@@ -54,6 +54,20 @@ Three left, all in MDX, all invisible at runtime:
 
 EHR Migration and NemoRx ship clean (no markers, all numbers from the resume).
 
+## Deferred dependency follow-ups
+
+Surfaced by `npm audit` and build output during the `next@15.5.18` bump
+(CVE-2025-66478). Not fixed in that commit to keep the diff focused. Pick up
+in a separate pass.
+
+| Package / signal | Severity | Notes |
+| --- | --- | --- |
+| `next-mdx-remote` 5.0.0 → 6.0.0 | high | GHSA-g4xw-jxrg-5f6m: arbitrary code execution when rendering untrusted MDX. We only render in-repo MDX, so practical risk is low, but upgrade is a breaking-change bump (v6 API). |
+| `postcss` < 8.5.10 (transitive via `next`) | moderate | GHSA-qx2v-qp2m-jg93 (XSS via unescaped `</style>`). Bundled inside Next; resolves when Next ships an internal postcss bump. Track on next minor. |
+| `esbuild` ≤ 0.24.2 (transitive via `vite` → `vitest`) | moderate | GHSA-67mh-4wv8-2f99 (dev-server CORS). Dev-only chain. Fix is `vitest@4.x`, breaking. |
+| Vite CJS API deprecation warning during vitest run | warn | Same chain. Goes away with `vitest@4.x`. |
+| Next.js ESLint plugin warning at build | warn | Next 15.5 expects the new flat-config preset (`eslint-config-next` flat export / `next/core-web-vitals`). Current `eslint.config.mjs` doesn't include it. Easy fix, but a config change, not part of the security bump. |
+
 ## What was built (initial sweep)
 
 A complete personal portfolio site, built spec-first across six phases (A–F), 26 atomic tasks, all checked off in `specs/04-task-breakdown.md`.
