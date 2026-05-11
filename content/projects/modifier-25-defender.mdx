@@ -1,0 +1,79 @@
+---
+title: 'Modifier 25 Defender'
+tagline: 'Four-agent LangGraph scoring Modifier 25 defensibility against four criteria. Citation-first synthesis, independent NLI compliance guard.'
+role: 'Self-Directed Reference Build · Solo'
+period: '2026'
+domain: ['ai-ml', 'healthcare']
+stack:
+  - 'Python 3.11'
+  - 'LangGraph'
+  - 'OpenAI GPT-4o'
+  - 'text-embedding-3-large'
+  - 'Qdrant'
+  - 'BM25 + RRF'
+  - 'Cross-Encoder Rerank (BAAI/bge-reranker-v2-m3)'
+  - 'DeBERTa-v3-large-mnli'
+  - 'FastAPI'
+  - 'Pydantic v2'
+  - 'React 18 + Vite + Tailwind'
+  - 'PostgreSQL'
+  - 'Langfuse'
+  - 'RAGAS'
+  - 'Docker Compose'
+  - 'GitHub Actions'
+highlights:
+  - 'Four-agent LangGraph pipeline (Orchestrator, Documentation Parser, Defensibility Analyzer, Remediation Drafter) plus an independent Compliance Guard. The agent that produces output is not the agent that verifies output: every cited claim is NLI-entailment-checked against its source, and the response is blocked rather than returned on hallucination.'
+  - 'Hybrid retrieval over a focused reference corpus (CMS NCCI E/M chapters, AAPC public guidance, podiatry-coding articles): Qdrant for dense recall, BM25 for exact-match on CPT and modifier identifiers, Reciprocal Rank Fusion to combine, and a cross-encoder rerank for the top of the funnel.'
+  - 'Defensibility scored against four documented criteria (distinct chief complaint, separate exam findings, independent medical decision making, site-specificity). Every verdict carries cited evidence; empty-evidence outputs are a hard failure, not a degraded mode.'
+  - 'CI gates are PR-blocking, not advisory: retrieval recall@5 ≥ 0.85, overall verdict accuracy ≥ 0.85, per-criterion accuracy ≥ 0.80, compliance guard recall = 1.00 on the adversarial set, RAGAS faithfulness ≥ 0.88, end-to-end p95 latency < 30s. A regression below threshold fails CI and blocks merge.'
+metrics:
+  - { label: 'Compliance guard recall (target)', value: '1.00 on adversarial set' }
+  - { label: 'p95 latency (target)', value: '< 30s end-to-end' }
+  - { label: 'Verification', value: 'NLI per cited claim, no bypass' }
+featured: false
+order: 8
+hero:
+  eyebrow: 'Healthcare RCM · Agentic AI'
+  problem: 'Payers are using AI to scrutinize every E/M code paired with a minor procedure under Modifier 25. Practices that exceed utilization thresholds face Pre-Payment Review. Coders spend hours per week defending claims that should have been documented defensibly at the encounter.'
+  outcome: 'A four-agent LangGraph reference implementation that reads a podiatry encounter note alongside its E/M code, procedure code, and Modifier 25 attachment, scores defensibility against four documented criteria with cited evidence, and blocks any unsupported claim before it reaches the coder.'
+---
+
+## Problem
+
+In 2026, payers use AI to scrutinize every E/M code paired with a minor procedure under Modifier 25. Practices that exceed utilization thresholds on Modifier 25 face Pre-Payment Review. Coders spend hours per week defending claims that should have been documented defensibly at the encounter. A simple "did the documentation support this Modifier 25?" decision turns into a multi-document audit trail per claim.
+
+The decision space is small but precise. Under published podiatry-coding guidance, a Modifier 25 is defensible if (and only if) the documentation shows a distinct chief complaint, a separate exam, independent medical decision making, and site-specificity relative to the procedure. The hard part is not the criteria. The hard part is reading the note honestly and refusing to confabulate when the documentation does not support a verdict.
+
+## Approach
+
+- **Four-agent LangGraph pipeline plus an independent verifier.** The Orchestrator picks the path. The Documentation Parser extracts a typed `ParsedEncounter` from the note. The Defensibility Analyzer scores against the four criteria using hybrid retrieval. The Remediation Drafter (conditional, only on WEAK or FAIL verdicts) suggests documentation language with citations. The Compliance Guard sits outside that loop and verifies every cited claim by NLI entailment before the response leaves the system.
+- **Synthesis and verification are different agents on purpose.** The agent that produces output is not the agent that verifies output. There is no bypass flag.
+- **Citation-first retrieval.** Qdrant for dense recall, BM25 for exact-match recall on CPT and modifier identifiers, Reciprocal Rank Fusion to combine, and a cross-encoder rerank for the top of the funnel. The reference corpus is intentionally narrow: CMS NCCI chapters on E/M services, AAPC public guidance, and published podiatry-coding articles.
+- **PR-blocking quality gates.** Retrieval recall@5, verdict accuracy, per-criterion accuracy, compliance guard recall on an adversarial set, RAGAS faithfulness, and p95 latency are all enforced in CI. Changing a threshold requires a PR, code review, and a written rationale.
+- **No autonomous action.** The system never assigns CPT, ICD-10, HCPCS, or modifier codes, never modifies the source note, and never submits claims. Every output is intended for coder review with an obvious accept, modify, or reject path.
+
+## Stack
+
+- **Orchestration:** LangGraph with typed state, conditional routing, and Postgres persistence.
+- **Models:** OpenAI GPT-4o for synthesis, `text-embedding-3-large` for dense retrieval, DeBERTa-v3-large-mnli for NLI entailment checking.
+- **Retrieval:** Qdrant for dense, BM25 for sparse, Reciprocal Rank Fusion, BAAI/bge-reranker-v2-m3 for cross-encoder rerank.
+- **API:** FastAPI with Pydantic v2 contracts.
+- **UI:** React 18 with Vite and Tailwind.
+- **Observability:** Langfuse traces with full session replay.
+- **Eval:** RAGAS plus a custom defensibility harness with a held-out gold set of 100 synthetic encounters and an adversarial hallucination set.
+- **CI:** GitHub Actions with PR-blocking quality gates and content-hash-cached LLM calls during eval.
+
+## Outcomes
+
+This is a working reference implementation, not a production deployment. The system runs end-to-end on a developer machine, with deterministic synthetic data generation (seed-pinned), idempotent reference-corpus indexing, content-hash-cached eval calls, and PR-blocking quality gates in CI.
+
+- All data in the repository is synthetic. The system is not HIPAA-compliant for real PHI and is not designed to acquire that compliance posture in v1.
+- Out of scope by design: claim submission, EHR write integration, autonomous coding, autonomous editing.
+- Demo available on request.
+
+## Lessons
+
+- The compliance-guard pattern (separate agent for verification, mandatory NLI on every cited claim, no bypass) is the architectural decision that makes a system safe for revenue-cycle work. Anything weaker is a regulatory and operational liability.
+- Refusal as a first-class outcome (empty-evidence as a hard failure, not a degraded mode) is cheaper than a wrong answer with a citation.
+- A small, focused reference corpus with strict gating beats a large noisy one. The four-criterion decision space rewards precision over recall in the retrieval layer.
+- PR-blocking eval thresholds are the only mechanism that survives. Advisory thresholds get ignored.

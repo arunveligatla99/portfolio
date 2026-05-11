@@ -1,0 +1,83 @@
+---
+title: 'Denial Triage & Appeal Drafting Engine'
+tagline: 'Agentic RCM reference for podiatry billing: parses 835 ERA, classifies denials, drafts citation-grounded appeals, queues for human coder review.'
+role: 'Self-Directed Reference Build · Solo'
+period: '2026'
+domain: ['ai-ml', 'healthcare']
+stack:
+  - 'Python 3.11'
+  - 'FastAPI'
+  - 'LangGraph'
+  - 'OpenAI GPT-4o'
+  - 'text-embedding-3-large'
+  - 'Qdrant'
+  - 'PostgreSQL'
+  - 'BM25 + Dense Retrieval (RRF)'
+  - 'X12 5010 (835 ERA)'
+  - 'RAGAS'
+  - 'React 18 + Vite + TypeScript'
+  - 'Docker Compose'
+  - 'GitHub Actions'
+  - 'mypy strict'
+  - 'ruff'
+  - 'pytest'
+highlights:
+  - 'Spec-driven reference build for podiatry-billing RCM: one markdown spec per EPIC, CI-enforced quality gates, append-only audit log with replay CLI, and a single audited LLM wrapper that records prompt, response, model, latency, tokens, and cost on every call.'
+  - 'Deterministic 835 X12 5010 parser packaged separately from the agents, so the wire-level parsing surface is independently testable and replaceable. CARC and RARC reference codes plus a domain-specific denial mapping live in a typed taxonomy package.'
+  - 'Agents draft appeals; humans submit them. No autonomous submission to any payer or clearinghouse. The Compliance Guard has veto power: a draft with a hallucinated citation never reaches the coder review queue.'
+  - 'Two highest-recoverable denial categories scoped first: routine-foot-care denials (often missing at-risk Q-modifiers or exceeding frequency limits) and Modifier 25 / global-period bundling under increasing payer AI scrutiny.'
+metrics:
+  - { label: 'Autonomous submission', value: 'never (human-in-loop)' }
+  - { label: 'Compliance guard', value: 'veto on hallucinated citation' }
+  - { label: 'Audit', value: 'append-only log + replay CLI' }
+featured: false
+order: 9
+hero:
+  eyebrow: 'Healthcare RCM · Agentic AI'
+  problem: 'Podiatry-billing denials concentrate in a few categories where recoverable revenue per practice is meaningful, but the appeal-drafting workflow is manual, repetitive, and slow. Existing RCM tools rarely combine wire-level 835 parsing, denial-category classification, recoverability scoring, and citation-grounded appeal drafting in one auditable system.'
+  outcome: 'A working reference implementation: deterministic 835 X12 5010 parser packaged separately, LangGraph agents for denial classification and appeal drafting, hybrid retrieval over CARC / RARC and policy guidance, a Compliance Guard that vetoes hallucinated citations, an append-only audit log with replay, and a coder review queue. Demo available on request.'
+---
+
+## Problem
+
+Podiatry-billing denials concentrate in a small number of categories where the recoverable revenue per practice is high enough to justify dedicated tooling. Routine-foot-care denials alone reach into the low-five-figures per practice per year, often because of missing at-risk Q-modifiers or frequency-limit exceedances. Modifier 25 and global-period bundling denials are a second growing category under payer AI scrutiny in 2026. The appeal-drafting workflow today is manual, repetitive, and slow.
+
+[//]: # (TODO ARUN COPY: add a real recoverable-revenue or appeal-acceptance metric if and when the system runs against an anonymized denial set.)
+
+## Approach
+
+- **Spec-driven, one spec per EPIC.** The 835 ERA parser, denial classifier, recoverability scorer, appeal drafter, Compliance Guard, audit log, and coder review queue each have a markdown spec under `specs/`. Implementation follows the spec, not the other way around.
+- **Deterministic parser, agentic everything else.** The X12 5010 835 ERA parser lives in its own package with no model calls, so the wire-level surface is independently testable. The agents operate on the parsed denial set, never on raw 835 lines.
+- **Typed denial taxonomy.** CARC and RARC reference codes plus a podiatry-specific denial mapping live in a typed package. Mapping changes go through review and version-bump.
+- **Hybrid retrieval over policy guidance.** Qdrant for dense recall, BM25 for exact-match recall on CARC and RARC identifiers, Reciprocal Rank Fusion to combine. Appeal drafts cite the retrieved evidence; uncited paragraphs do not ship.
+- **Compliance Guard with veto power.** NLI verification on every cited claim. A draft with a hallucinated citation never reaches the queue.
+- **One audited LLM wrapper.** Every model call goes through one function that logs prompt, response, model, latency, tokens, and cost. There is no ad-hoc OpenAI client elsewhere in the codebase.
+- **Versioned prompts.** Prompts live in files under `packages/agents/prompts/`, never inline. Prompt changes are reviewable, diffable, and revertable.
+- **Append-only audit with replay.** Every agent decision flows into an append-only log. A replay CLI reconstructs the agent state from the log for any session.
+- **No autonomous submission.** The system drafts and queues. A human coder submits. There is no payer, clearinghouse, or EHR write integration, and no plan to acquire one.
+
+## Stack
+
+- **Orchestration:** LangGraph for the denial-classification and appeal-drafting agents. Deterministic Python for the X12 parser.
+- **Models:** OpenAI GPT-4o for synthesis, `text-embedding-3-large` for dense retrieval.
+- **Retrieval:** Qdrant for dense, BM25 for sparse, Reciprocal Rank Fusion to combine.
+- **Storage:** PostgreSQL for the review queue and audit log, Qdrant for embeddings.
+- **API:** FastAPI for the review-queue service.
+- **UI:** React 18 with Vite and TypeScript for the coder UI.
+- **Eval:** RAGAS plus classifier-F1 and guard-recall harnesses, PR-blocking in CI.
+- **Tooling:** ruff, mypy strict, pytest, GitHub Actions, Docker Compose for local Postgres and Qdrant.
+
+## Outcomes
+
+This is a working reference implementation for the agentic-RCM pattern: spec-driven layout, deterministic wire-level parsing isolated from the agentic surface, citation-grounded drafting under a Compliance Guard veto, and a human-in-the-loop review queue.
+
+- All test data is obviously synthetic (e.g. `TEST_PATIENT_001`). The system has not been validated on real PHI and is not designed for real-PHI processing without a BAA-backed compliance pass.
+- Two highest-recoverable denial categories scoped first; adjacent categories (prior auth missing, eligibility, coding error, documentation insufficient, timely filing) tracked in the taxonomy but deferred.
+- Demo available on request.
+
+## Lessons
+
+- Separating the deterministic 835 parser from the agentic surface buys independent testability and replacement on each side. Mixing them is a future-rewrite tax.
+- A single audited LLM wrapper is the cheapest observability decision available. The first time a cost or token-budget incident happens, the wrapper pays for itself.
+- A draft that fails the Compliance Guard should not exist on the queue. A bypass flag is technical debt with a clinical-safety price tag.
+- Versioned prompts in files (not inline) make prompt regressions diffable and revertable. Prompt-as-code, not prompt-as-text.

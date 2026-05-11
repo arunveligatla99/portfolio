@@ -2,15 +2,17 @@ import { describe, it, expect } from 'vitest';
 import { listProjects, listFeaturedProjects, getProject } from './projects';
 
 describe('projects loader', () => {
-  it('loads all seven expected projects', async () => {
+  it('loads all nine expected projects', async () => {
     const projects = await listProjects();
     const slugs = projects.map((p) => p.slug).sort();
     expect(slugs).toEqual(
       [
         'agentix-erp',
         'collectmind',
+        'denial-triage',
         'ehr-migration',
         'ema-mmrxservice',
+        'modifier-25-defender',
         'nemorx',
         'policymind',
         'traknet',
