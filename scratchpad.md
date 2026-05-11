@@ -62,7 +62,6 @@ in a separate pass.
 
 | Package / signal | Severity | Notes |
 | --- | --- | --- |
-| `next-mdx-remote` 5.0.0 → 6.0.0 | high | GHSA-g4xw-jxrg-5f6m: arbitrary code execution when rendering untrusted MDX. We only render in-repo MDX, so practical risk is low, but upgrade is a breaking-change bump (v6 API). |
 | `postcss` < 8.5.10 (transitive via `next`) | moderate | GHSA-qx2v-qp2m-jg93 (XSS via unescaped `</style>`). Bundled inside Next; resolves when Next ships an internal postcss bump. Track on next minor. |
 | `esbuild` ≤ 0.24.2 (transitive via `vite` → `vitest`) | moderate | GHSA-67mh-4wv8-2f99 (dev-server CORS). Dev-only chain. Fix is `vitest@4.x`, breaking. |
 | Vite CJS API deprecation warning during vitest run | warn | Same chain. Goes away with `vitest@4.x`. |
