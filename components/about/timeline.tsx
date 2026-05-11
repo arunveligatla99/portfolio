@@ -58,23 +58,25 @@ export function Timeline() {
             aria-hidden
             className="absolute -left-[calc(0.375rem+1px)] top-1 h-2 w-2 rounded-full bg-[color:var(--color-accent)]"
           />
-          <p className="font-mono text-xs uppercase tracking-wide text-subtle">
-            {e.period}
-          </p>
-          <p className="mt-1 text-base font-semibold text-fg">{e.role}</p>
-          <p className="text-sm text-muted">{e.org}</p>
-          {e.highlights.length > 0 && (
-            <ul className="mt-3 space-y-2 text-sm text-muted">
-              {e.highlights.map((h) => (
-                <li key={h} className="flex gap-2">
-                  <span aria-hidden className="mt-1 text-accent">
-                    ◆
-                  </span>
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="pl-3">
+            <p className="font-mono text-xs uppercase tracking-wide text-subtle">
+              {e.period}
+            </p>
+            <p className="mt-1 text-base font-semibold text-fg">{e.role}</p>
+            <p className="text-sm text-muted">{e.org}</p>
+            {e.highlights.length > 0 && (
+              <ul className="mt-3 space-y-2 text-sm text-muted">
+                {e.highlights.map((h) => (
+                  <li key={h} className="flex gap-2">
+                    <span aria-hidden className="mt-1 text-accent">
+                      ◆
+                    </span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </li>
       ))}
     </ol>
