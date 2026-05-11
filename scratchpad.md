@@ -63,9 +63,10 @@ recruiter screening; the site is the deeper case-study surface. When the
 two disagree, this section records the why so the next pass does not "fix"
 a deliberate choice.
 
-| Field | Resume PDF | Site | Why |
-| --- | --- | --- | --- |
-| TRAKnet period | Dec 2014 to Apr 2018 (sub-bullet under Nemo Health) | Dec 2014 to Apr 2021 | TRAKnet was actively maintained throughout the full Nemo Health tenure, not only during the initial build phase. The site reflects the platform reality; the PDF reflects the lead-build window. Resume update is a manual follow-up, owner: Arun. |
+**Currently: none.** Resume PDF refreshed; TRAKnet shows Dec 2014 to Apr 2021,
+positioning is Senior AI Engineer, no MS coursework descriptor, no trading
+content. Site and PDF aligned. The previous TRAKnet date divergence
+(2014-2018 in PDF vs 2014-2021 on site) is resolved by the PDF update.
 
 ## Deferred dependency follow-ups
 
