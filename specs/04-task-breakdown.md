@@ -58,7 +58,7 @@ Legend: `[ ]` open · `[x]` done.
 
 - [x] **T-012** — `/about` (intro, timeline, skills matrix, human texture)
   - **deps:** T-005
-  - **accept:** Single `<h1>`. Cricket + 0DTE options at the bottom. ModMed RIF not mentioned anywhere.
+  - **accept:** Single `<h1>`. Cricket + agentic AI at the bottom. ModMed RIF not mentioned anywhere.
 
 - [x] **T-013** — `/writing` index + `/writing/[slug]` with empty-state copy
   - **deps:** T-008

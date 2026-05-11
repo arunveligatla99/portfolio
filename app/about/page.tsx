@@ -56,10 +56,10 @@ export default function AboutPage() {
           <p>
             I hold an MS in Computer Science and Engineering from Oakland
             University and a BS in Computer Science from Jawaharlal Nehru
-            Technological University. I am based in Lake Orion, Michigan,
-            on H-1B with an approved I-140 (priority date October 2023)
-            and am transfer-eligible. Open to senior AI, backend, and
-            full-stack engineering roles.
+            Technological University. I am based in Lake Orion, Michigan.
+            Open to senior backend, full-stack, and AI engineering roles
+            based in the US (remote, hybrid, or on-site). H-1B with
+            approved I-140, transfer-eligible.
           </p>
         </div>
       </Container>
@@ -93,12 +93,13 @@ export default function AboutPage() {
           </div>
           <div className="rounded-[var(--radius-card)] border border-default bg-surface p-5">
             <p className="font-mono text-xs uppercase tracking-wide text-subtle">
-              0DTE SPX / SPY options
+              Designing Agentic AI applications
             </p>
             <p className="mt-2 text-sm text-muted">
-              I trade 0DTE SPX and SPY options. It is a sharp lesson in
-              probabilistic thinking, position sizing, and the difference
-              between being right and being early.
+              I have been designing agentic AI applications to solve
+              problems where multi-step reasoning, tool use, and
+              autonomous decision-making produce better outcomes than
+              traditional code.
             </p>
           </div>
         </div>

@@ -78,7 +78,7 @@ Pages (8 templates, 13 prerendered routes):
 - `/` (hero, featured projects, skills summary, contact CTA)
 - `/projects` (filterable grid with URL-state filter chips)
 - `/projects/[slug]` (case study layout, MDX with build-time shiki, metrics row, JSON-LD)
-- `/about` (intro, timeline, skills matrix, cricket + 0DTE options at the bottom)
+- `/about` (intro, timeline, skills matrix, cricket + agentic AI at the bottom)
 - `/writing` and `/writing/[slug]` (empty-state copy now, scaffold ready for real posts)
 - `/contact` (form + direct contact + LinkedIn/GitHub/email/resume)
 - `/resume` (HTML mirror + PDF download)
@@ -109,7 +109,7 @@ Shipping config:
 3. ~~**Resume PDF is a 0-byte placeholder**~~ **Resolved.** Real resume PDF (354 KB) committed at `public/arun-veligatla-resume.pdf`. HTML mirror at `/resume` updated to match (phone, BS row in Education).
 4. **Project content**: All 5 case studies (PolicyMind, Agentix ERP, CollectMind, EHR Migration, NemoRx) now reflect the real resume. Three `{/* TODO: ARUN COPY */}` markers remain (table above) for optional polish; site ships fine with them.
 5. **Lighthouse CI** is documented in the README but not run inside GH Actions. Headless Chromium under sandboxed CI is brittle; the README has the manual `lhci` command.
-6. **Cricket and trading copy** is mine, written in your voice from the prompt brief. Re-tone if it doesn't feel like you.
+6. **Cricket and agentic AI copy** is mine, written in your voice from the prompt brief. Re-tone if it doesn't feel like you.
 7. **About page timeline framing**: "open to senior AI, backend, and full-stack roles" is used; ModMed framed as "2021 to present" per resume; RIF is not mentioned anywhere on the public site (enforced by the content guard test).
 8. **Writing scaffold ships with `hello-world.mdx` flagged `draft: true`**, so the public listing renders the empty state. The route is fully exercised by the test fixture. Delete once a real post lands.
 

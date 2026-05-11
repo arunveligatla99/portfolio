@@ -91,8 +91,8 @@ export default function ContactPage() {
             </p>
             <p className="mt-2 text-muted">
               Open to senior backend, full-stack, and AI engineering roles
-              based in the US (remote or hybrid). H-1B with approved I-140
-              (priority date October 2023), transfer-eligible.
+              based in the US (remote, hybrid, or on-site). H-1B with
+              approved I-140, transfer-eligible.
             </p>
           </div>
 

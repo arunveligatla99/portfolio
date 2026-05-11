@@ -170,7 +170,7 @@ One shadow only (`shadow-sm`), used on hover states for cards. Otherwise no shad
 intro paragraph
 timeline (ModMed, Nemo Health, education)
 skills matrix
-human texture (cricket, options trading) at the bottom
+human texture (cricket, agentic AI) at the bottom
 ```
 
 ### `/contact`
