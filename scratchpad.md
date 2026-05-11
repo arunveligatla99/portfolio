@@ -6,12 +6,13 @@
 
 ## Current state (as of latest commit)
 
-- `main` is clean. Last 4 commits: spec drift sync, positioning sync, content overhaul, T-023..T-026 ship config.
+- **Site is live at <https://arunveligatla.com>.** Deploy phase complete. GitHub repo: <https://github.com/arunveligatla99/portfolio>, branch `main`, Vercel project wired, custom domain on, HTTPS active.
+- `main` is clean. Last commits cover the deploy run: vuln patches (next 15.5.18, next-mdx-remote 6.x), about-page refinements, TRAKnet and EMA / mmRxService case studies, timeline spacing polish.
 - Real resume PDF (354 KB) is at `public/arun-veligatla-resume.pdf`.
 - 7 project case studies live: PolicyMind, Agentix ERP, CollectMind, TRAKnet, EHR Migration, NemoRx, EMA / mmRxService. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`.
 - Positioning aligned to the resume: "Senior AI Engineer" everywhere, BS added, phone in `lib/seo.ts` JSON-LD, ModMed framed as "2021 to present".
 - 45 vitest cases green, 11 Playwright cases green, axe zero violations, build green.
-- **Next blocker is on you**: domain decision + Vercel hookup. Runbook is `DEPLOY.md` at the repo root.
+- `DEPLOY.md` stays in the repo as the canonical runbook for any future redeploy, env-var change, domain swap, or rollback. Not a blocker anymore, but the reference path.
 
 ## Updates since the autonomous build
 
@@ -191,3 +192,4 @@ Shipping config:
 - Phase C+D done: 11 tasks, 1 commit, 13 vitest cases green, all 18 routes build.
 - Phase E done: 3 tasks, 1 commit, 45 vitest cases green, 10 Playwright cases green, 24 screenshots, axe zero violations.
 - Phase F done: 4 tasks, this commit. README, vercel.json, GH Actions, verification report, scratchpad summary.
+- Deploy phase done: site live on the custom domain at <https://arunveligatla.com>. GitHub repo at <https://github.com/arunveligatla99/portfolio>. Vercel hookup, env vars, DNS, and HTTPS issuance all complete. `DEPLOY.md` retained for future redeploys and rollbacks.
