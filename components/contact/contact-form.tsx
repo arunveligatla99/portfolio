@@ -54,7 +54,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5">
       <div>
         <label htmlFor="name" className="block text-sm text-fg">
           Name

@@ -5,9 +5,18 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const payloadSchema = z.object({
-  name: z.string().min(2).max(120),
-  email: z.string().email().max(254),
-  message: z.string().min(10).max(4000),
+  name: z
+    .string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(120, 'Name must be 120 characters or fewer'),
+  email: z
+    .string()
+    .email('Email must be a valid email address')
+    .max(254, 'Email must be 254 characters or fewer'),
+  message: z
+    .string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(4000, 'Message must be 4000 characters or fewer'),
   honeypot: z.string().optional().default(''),
 });
 
@@ -44,7 +53,10 @@ export async function POST(req: Request) {
   const parsed = payloadSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { ok: false, error: 'Validation failed' },
+      {
+        ok: false,
+        error: parsed.error.issues[0]?.message ?? 'Validation failed',
+      },
       { status: 422 },
     );
   }
