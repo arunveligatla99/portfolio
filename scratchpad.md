@@ -8,7 +8,7 @@
 
 - `main` is clean. Last 4 commits: spec drift sync, positioning sync, content overhaul, T-023..T-026 ship config.
 - Real resume PDF (354 KB) is at `public/arun-veligatla-resume.pdf`.
-- 5 project case studies live: PolicyMind, Agentix ERP, CollectMind, EHR Migration, NemoRx. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`.
+- 7 project case studies live: PolicyMind, Agentix ERP, CollectMind, TRAKnet, EHR Migration, NemoRx, EMA / mmRxService. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`.
 - Positioning aligned to the resume: "Senior AI Engineer" everywhere, BS added, phone in `lib/seo.ts` JSON-LD, ModMed framed as "2021 to present".
 - 45 vitest cases green, 11 Playwright cases green, axe zero violations, build green.
 - **Next blocker is on you**: domain decision + Vercel hookup. Runbook is `DEPLOY.md` at the repo root.
@@ -52,7 +52,19 @@ Three left, all in MDX, all invisible at runtime:
 
 `grep -rn "TODO: ARUN COPY" content/` reproduces the list.
 
-EHR Migration and NemoRx ship clean (no markers, all numbers from the resume).
+EHR Migration, NemoRx, TRAKnet, and EMA / mmRxService ship clean (no markers, all numbers from the resume).
+
+## Site/Resume divergences
+
+Track places where the live site intentionally diverges from the resume PDF
+at `public/arun-veligatla-resume.pdf`. The PDF is the canonical artifact for
+recruiter screening; the site is the deeper case-study surface. When the
+two disagree, this section records the why so the next pass does not "fix"
+a deliberate choice.
+
+| Field | Resume PDF | Site | Why |
+| --- | --- | --- | --- |
+| TRAKnet period | Dec 2014 to Apr 2018 (sub-bullet under Nemo Health) | Dec 2014 to Apr 2021 | TRAKnet was actively maintained throughout the full Nemo Health tenure, not only during the initial build phase. The site reflects the platform reality; the PDF reflects the lead-build window. Resume update is a manual follow-up, owner: Arun. |
 
 ## Deferred dependency follow-ups
 

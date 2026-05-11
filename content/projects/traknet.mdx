@@ -1,0 +1,53 @@
+---
+title: 'TRAKnet: Podiatry EHR Platform'
+tagline: 'Podiatry EHR on .NET / WPF across hundreds of practices, with PCI DSS payment integration via TriZetto.'
+role: 'Software Developer to Senior Software Developer · Tech Lead'
+period: 'Dec 2014 to Apr 2021'
+domain: ['healthcare', 'enterprise-saas']
+stack:
+  - '.NET Framework'
+  - 'C#'
+  - 'WPF'
+  - 'UWP'
+  - 'XAML'
+  - 'WinForms'
+  - 'Entity Framework'
+  - 'SQL Server 2008 to 2016'
+  - 'Crystal Reports'
+  - 'Telerik RadControls'
+  - 'TriZetto'
+  - 'PCI DSS'
+highlights:
+  - 'Designed and shipped WPF / XAML and WinForms desktop UI for clinical charting, billing, scheduling, and practice management across hundreds of active podiatry practices.'
+  - 'Modeled domain entities with Entity Framework over SQL Server 2008 to 2016, tuned for high-frequency clinical and billing transactions during clinic-day load.'
+  - 'Integrated payment flows against TriZetto under PCI DSS requirements: scoped access, audit logging, encrypted-in-transit channels, and a payment surface that never lifted card data into application memory.'
+  - 'Led distributed offshore engineering team across sprint planning, code reviews, and releases. Modernized legacy .NET modules with significant tech debt without disrupting production clinical workflows.'
+metrics:
+  - { label: 'Active practices', value: 'hundreds' }
+  - { label: 'Platform tenure', value: '6+ years' }
+  - { label: 'Payment compliance', value: 'PCI DSS via TriZetto' }
+featured: true
+order: 4
+hero:
+  eyebrow: 'Healthcare SaaS'
+  problem: 'Podiatry-specific clinical software runs day-in-day-out workflows where any latency or outage stops billing, scheduling, and patient documentation. The codebase carried a decade of legacy .NET, and any modernization had to ship without disrupting production clinical work across hundreds of active practices.'
+  outcome: 'A WPF, XAML, and WinForms desktop platform shipped across hundreds of podiatry practices for 6+ years, with PCI DSS payment integration via TriZetto, incremental legacy modernization with no customer-visible disruption, and a distributed offshore engineering team owning day-to-day delivery.'
+---
+
+## Problem and Approach
+
+Podiatry-specific clinical software runs day-in-day-out workflows where any latency or outage stops billing, scheduling, and patient documentation. The platform served hundreds of active practices on Windows desktops, ran clinical charting, billing, scheduling, and practice management, and carried payment flows that had to satisfy PCI DSS. The codebase carried a decade of legacy .NET, and any modernization had to ship without disrupting production clinical work.
+
+- **Desktop UI for clinical workflow.** WPF and XAML for the modern charting, billing, scheduling, and practice management modules. WinForms for the older modules that could not be rewritten without risking active practice workflows. UWP for newer touch-oriented flows.
+- **Transactional domain model.** Entity Framework over SQL Server 2008 through 2016, tuned for high-frequency reads and writes during clinic-day load. Schema and access paths were sized to the worst clinic hours, not the average.
+- **Payment integration under PCI DSS.** TriZetto connectivity built against PCI DSS requirements: scoped access, audit logging, encrypted-in-transit channels, and a payment surface that never lifted card data into application memory.
+- **Reporting.** Crystal Reports for clinical, billing, and operational reports. Telerik RadControls for the grids and form widgets that practice users spent most of the day inside.
+- **Legacy modernization with no downtime.** Older .NET modules were modernized incrementally behind feature flags, never in a big-bang release. Production clinical workflows stayed live throughout.
+- **Distributed offshore engineering team.** Led offshore engineering across sprint planning, code reviews, and release management. US-side ownership of customer-impact and clinical-safety decisions, offshore ownership of day-to-day delivery and the legacy maintenance surface.
+
+## Outcomes
+
+- Production platform across hundreds of podiatry practices for the full 6+ year tenure.
+- Legacy .NET modules modernized incrementally, without a customer-visible disruption event.
+- TriZetto payment integration held PCI DSS compliance throughout.
+- Distributed offshore engineering team owned day-to-day delivery of new modules and the maintenance of the legacy surface.

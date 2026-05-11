@@ -1,0 +1,50 @@
+---
+title: 'EMA Clinical Workflows & mmRxService: Electronic Prescribing'
+tagline: 'Angular clinical UI and Spring Boot e-prescribing on AWS SQS/SNS, with NemoRx SureScripts patterns carried into mmRxService.'
+role: 'Senior Software Engineer'
+period: 'Mar 2025 to Nov 2025'
+domain: ['healthcare', 'enterprise-saas']
+stack:
+  - 'Java'
+  - 'Spring Boot'
+  - 'Angular'
+  - 'AWS Lambda'
+  - 'AWS SQS / SNS'
+  - 'Apache Kafka'
+  - 'DynamoDB'
+  - 'Swagger / OpenAPI'
+  - 'Okta'
+  - 'SureScripts'
+highlights:
+  - 'Built Angular UI for clinical workflow and prescription modules in EMA, integrated against the existing SPA platform.'
+  - 'Translated 9 years of TRAKnet production exposure into concrete architectural guidance on charting, billing, and scheduling modules, preventing rework on flows where TRAKnet had already paid the cost.'
+  - 'Built event-driven prescription processing on Spring Boot with AWS Lambda, SQS/SNS, DynamoDB, and Kafka, resilient to transient SureScripts failures.'
+  - 'Carried NemoRx SureScripts integration patterns (retry semantics, partial-write recovery, expired-token handling) directly into mmRxService, shortening team ramp-up on the e-prescribing surface. Advised on DEA / payer-compliant RBAC with Okta.'
+metrics:
+  - { label: 'Architectural influence', value: '9-year TRAKnet to EMA carryover' }
+  - { label: 'Eventing', value: 'AWS SQS / SNS, Kafka' }
+  - { label: 'Identity', value: 'Okta RBAC, DEA / payer-compliant' }
+featured: false
+order: 7
+hero:
+  eyebrow: 'Healthcare SaaS'
+  problem: 'EMA was absorbing practices migrating from TRAKnet, Sammy, and Exscribe. Those practices brought 9 years of accumulated clinical-workflow expectations on charting, billing, and scheduling that the receiving platform team had not personally shipped. In parallel, mmRxService had to come online as a Java and Spring Boot e-prescribing service on AWS, satisfying SureScripts integration and DEA / payer-compliant identity from day one.'
+  outcome: 'Angular clinical workflow and prescription modules in EMA, concrete architectural guidance that prevented rework on charting / billing / scheduling, an event-driven mmRxService on AWS SQS / SNS applying NemoRx SureScripts patterns directly, and Okta-based DEA / payer-compliant RBAC delivered alongside the prescription flow.'
+---
+
+## Problem and Approach
+
+EMA was absorbing practices migrating from TRAKnet, Sammy, and Exscribe. Those practices brought 9 years of accumulated clinical-workflow expectations on charting, billing, and scheduling that the receiving platform team had not personally shipped. In parallel, mmRxService had to come online as a Java and Spring Boot e-prescribing service on AWS, satisfying SureScripts integration and DEA / payer-compliant identity from day one.
+
+- **Architectural carryover from TRAKnet.** The 9 years of production exposure on TRAKnet translated into named guidance for the EMA team on charting, billing, and scheduling modules. Concretely: clinical workflow edge cases (medication reconciliation, billing-encounter timing, scheduling state transitions) were flagged before they reached implementation, preventing rework on the modules where TRAKnet had already paid the cost.
+- **Angular clinical UI.** Angular components for clinical workflow and prescription modules in EMA, integrated against the SPA architecture already in place on the platform.
+- **Event-driven prescription processing.** Spring Boot services on AWS Lambda with SQS / SNS for asynchronous prescription processing, DynamoDB for prescription state, and Kafka for cross-service eventing. The event-driven shape kept the prescription path resilient to transient SureScripts failures and rate-limit windows.
+- **SureScripts patterns from NemoRx.** Production patterns already proven on NemoRx (real-time medication history retry semantics, partial-write recovery, expired-token handling) were carried directly into mmRxService, shortening team ramp-up on the e-prescribing surface.
+- **Identity and authorization.** Okta-based RBAC scoped to DEA EPCS and payer requirements, with explicit guidance on the controlled-substance prescribing flow.
+
+## Outcomes
+
+- Angular clinical workflow and prescription modules shipped into EMA.
+- Architectural guidance on charting, billing, and scheduling prevented rework on the modules where TRAKnet had already paid the cost.
+- mmRxService event-driven pipeline on AWS SQS / SNS in production, applying NemoRx SureScripts patterns directly.
+- DEA / payer-compliant RBAC on Okta delivered alongside the prescription flow.

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { listProjects, listFeaturedProjects, getProject } from './projects';
 
 describe('projects loader', () => {
-  it('loads all five expected projects', async () => {
+  it('loads all seven expected projects', async () => {
     const projects = await listProjects();
     const slugs = projects.map((p) => p.slug).sort();
     expect(slugs).toEqual(
@@ -10,8 +10,10 @@ describe('projects loader', () => {
         'agentix-erp',
         'collectmind',
         'ehr-migration',
+        'ema-mmrxservice',
         'nemorx',
         'policymind',
+        'traknet',
       ].sort(),
     );
   });
