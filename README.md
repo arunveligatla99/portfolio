@@ -2,6 +2,9 @@
 
 Personal portfolio for Arun Veligatla. Next.js 15 (App Router) + TypeScript strict + Tailwind v4 + MDX content. Deployed on Vercel.
 
+- Live: <https://arunveligatla.com>
+- Source: <https://github.com/arunveligatla99/portfolio>
+
 ## Quick start
 
 ```bash
@@ -92,6 +95,21 @@ hero:
 Frontmatter is validated by `lib/projects-shared.ts` (zod). Bad frontmatter fails the build with a precise error.
 
 Domains enum: `healthcare`, `fintech`, `ai-ml`, `enterprise-saas`, `platform`. Add new values to `ProjectDomain` and `domainLabels` in `lib/projects-shared.ts`.
+
+#### Author markers inside MDX bodies
+
+Use markdown reference-link comments, not JSX comments, for author-only
+notes inside an MDX body:
+
+```mdx
+[//]: # (TODO ARUN COPY: pull a representative trace screenshot if cleared.)
+```
+
+`next-mdx-remote` v6 defaults `blockJS` and `blockDangerousJS` to `true`,
+so JSX expressions like `{/* ... */}` in an MDX body fail compilation.
+The reference-link form renders to nothing in CommonMark / MDX, is still
+greppable (`grep -rn "TODO ARUN COPY" content/`), and survives the
+v6-hardened defaults.
 
 ### Add a writing post
 

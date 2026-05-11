@@ -150,3 +150,46 @@ Sitemap: https://arunveligatla.com/sitemap.xml
 
 `curl http://localhost:3000/og?title=Arun&eyebrow=Engineer` returns a
 1200 × 630 PNG (verified by build output, edge runtime).
+
+---
+
+## Post-launch state
+
+Appended 2026-05-11. Records the current production state without
+rewriting the original verification entries above. Numbers below come
+from the same scripts (`npm run build`, `npm run test`, `npm run
+test:e2e`) executed during the consolidation pass.
+
+- **Site is live at <https://arunveligatla.com>** as of the deploy
+  commit `3242178` on 2026-05-11. Custom domain on the apex, HTTPS
+  cert issued by Vercel.
+- **GitHub source:** <https://github.com/arunveligatla99/portfolio>.
+  Default branch `main`. CI workflow `.github/workflows/ci.yml` runs
+  typecheck, lint, vitest, build, and Playwright on every push and PR.
+- **Case studies:** 9 prerendered as static HTML, up from the 5 in the
+  build table above. The four added since the original report:
+  `traknet`, `ema-mmrxservice`, `modifier-25-defender`, `denial-triage`.
+  Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect
+  via `next.config.mjs` and `vercel.json`.
+- **Routes:** 22 total (up from 18). Increment is the four new project
+  case studies.
+- **Vitest:** 14 files, 45 cases passing. Same count as the original
+  report; the new test asserting on the 9-slug list replaced the
+  earlier 5-slug assertion in the same case count.
+- **Playwright:** 11 cases passing (up from 10). Axe-core scan zero
+  violations across the templated pages. Local runs use a non-default
+  port (`PLAYWRIGHT_BASE_URL=http://localhost:4200`) because `:3000`
+  is occupied by a developer Grafana instance.
+- **Build size:** shared First Load JS is 102 KB, slightly below the
+  original 105 KB. Per-route JS is unchanged.
+- **Dependency security:** `next` is pinned to `15.5.18`
+  (CVE-2025-66478 patched), `next-mdx-remote` is pinned to `6.0.0`
+  (GHSA-g4xw-jxrg-5f6m patched). Remaining audit hits are tracked in
+  `scratchpad.md` under "Deferred dependency follow-ups".
+- **Resume PDF:** `public/arun-veligatla-resume.pdf`, 354,489 bytes
+  (~346 KB). Aligned with site copy (TRAKnet Dec 2014 to Apr 2021,
+  Senior AI Engineer positioning, no MS coursework descriptor, no
+  trading content).
+- **Lighthouse against production:** not yet run. The `lhci autorun`
+  step documented in `DEPLOY.md` § 7 is open. Scores will land under a
+  new "Lighthouse (production)" subsection here once captured.

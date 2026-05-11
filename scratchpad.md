@@ -9,7 +9,7 @@
 - **Site is live at <https://arunveligatla.com>.** Deploy phase complete. GitHub repo: <https://github.com/arunveligatla99/portfolio>, branch `main`, Vercel project wired, custom domain on, HTTPS active.
 - `main` is clean. Last commits cover the deploy run: vuln patches (next 15.5.18, next-mdx-remote 6.x), about-page refinements, TRAKnet and EMA / mmRxService case studies, timeline spacing polish.
 - Real resume PDF (354 KB) is at `public/arun-veligatla-resume.pdf`.
-- 7 project case studies live: PolicyMind, Agentix ERP, CollectMind, TRAKnet, EHR Migration, NemoRx, EMA / mmRxService. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`.
+- 9 project case studies live: PolicyMind, Agentix ERP, CollectMind, TRAKnet, EHR Migration, NemoRx, EMA / mmRxService, Modifier 25 Defender, Denial Triage. Old slugs (`verax-erp`, `loanpulse`, `nemo-trizetto`) 308 redirect via `next.config.mjs` and `vercel.json`. Build emits 22 routes total.
 - Positioning aligned to the resume: "Senior AI Engineer" everywhere, BS added, phone in `lib/seo.ts` JSON-LD, ModMed framed as "2021 to present".
 - 45 vitest cases green, 11 Playwright cases green, axe zero violations, build green.
 - `DEPLOY.md` stays in the repo as the canonical runbook for any future redeploy, env-var change, domain swap, or rollback. Not a blocker anymore, but the reference path.
@@ -43,17 +43,18 @@ Plus: `docs: add DEPLOY.md runbook for shipping to Vercel` (separate commit). Or
 
 ## Remaining `TODO: ARUN COPY` markers
 
-Three left, all in MDX, all invisible at runtime:
+Four left, all in MDX, all invisible at runtime:
 
 | File | Line | Ask |
 | --- | --- | --- |
 | `content/projects/agentix-erp.mdx` | 74 | Confirm tenant scale numbers; add public demo or repo link if cleared. |
 | `content/projects/policymind.mdx` | 77 | Add a representative trace screenshot or system diagram if cleared. |
 | `content/projects/collectmind.mdx` | 70 | Confirm framing; add anonymized metrics if cleared. |
+| `content/projects/denial-triage.mdx` | 45 | Add a real recoverable-revenue or appeal-acceptance metric if and when the system runs against an anonymized denial set. |
 
-`grep -rn "TODO: ARUN COPY" content/` reproduces the list.
+`grep -rn "TODO: ARUN COPY\|TODO ARUN COPY" content/` reproduces the list (two punctuation variants, both treated equivalently).
 
-EHR Migration, NemoRx, TRAKnet, and EMA / mmRxService ship clean (no markers, all numbers from the resume).
+EHR Migration, NemoRx, TRAKnet, EMA / mmRxService, and Modifier 25 Defender ship clean (no markers, all numbers from the resume or from concrete CI thresholds).
 
 ## Site/Resume divergences
 
@@ -139,20 +140,22 @@ Shipping config:
 
 ## Known gaps (in priority order)
 
-1. **Domain decision + Vercel hookup. This is the only ship blocker, and it is on you, not the codebase.** Once the domain is picked, follow `DEPLOY.md` end-to-end. `NEXT_PUBLIC_SITE_URL` defaults to `https://arunveligatla.com` and is the placeholder used by sitemap, canonicals, OG, and JSON-LD; flip it on Vercel after DNS lands.
-2. **Three remaining `TODO: ARUN COPY` markers** in `content/projects/` (Agentix ERP, PolicyMind, CollectMind). See the table above. Optional; site ships fine with them in place.
+1. ~~**Domain decision + Vercel hookup.**~~ Resolved 2026-05-11. Site live on the apex at <https://arunveligatla.com>.
+2. **Four remaining `TODO: ARUN COPY` markers** in `content/projects/` (Agentix ERP, PolicyMind, CollectMind, Denial Triage). See the table above. Optional; site ships fine with them in place.
 3. **A real first writing post.** Optional. Empty state is currently the listing. Even one technical note ("Why we run RAGAS in CI", "What broke when we wired Compliance Guard") gives the page a reason to exist publicly.
-4. **OG card preview validation.** The `/og` route renders under `next dev` and `next start`. Validate per-page OG cards against LinkedIn / X / Slack inspectors once deployed (steps in `DEPLOY.md` § 7).
-5. **Lighthouse smoke against production.** Run `lhci autorun` after deploy and paste the four scores into `specs/07-verification-report.md` under a new "Lighthouse (production)" subsection.
+4. **OG card preview validation.** The `/og` route renders under `next dev` and `next start`. Validate per-page OG cards against LinkedIn / X / Slack inspectors against the production URL (steps in `DEPLOY.md` § 7).
+5. **Lighthouse smoke against production.** Run `lhci autorun` against <https://arunveligatla.com> and paste the four scores into `specs/07-verification-report.md` under a new "Lighthouse (production)" subsection.
 6. **No favicon beyond `app/icon.svg`.** SVG works in modern browsers; iOS / Safari home-screen wants a PNG fallback. Easy to add later, not a blocker.
+7. **Resend wiring.** `/api/contact` runs in stub mode in production. Phase 6 of `DEPLOY.md` is the path when ready to flip on real email delivery.
 
 ## Recommended next steps
 
-1. **Pick the domain. Then follow `DEPLOY.md`.** That runbook is the canonical path: GitHub push → Vercel hookup → env vars → first deploy on `*.vercel.app` → DNS → redeploy with final canonical URL → post-deploy validation.
-2. **(Optional) Land the three `TODO: ARUN COPY` markers** before flipping DNS, so the first crawl indexes the final copy.
-3. **Send the production URL to LinkedIn, the GitHub profile, and a couple of targeted recruiter conversations.** The site is now the recruiter funnel; treat it like one.
-4. **Add a writing post when one is ready.** Pipeline is built, indexed, sitemapped, and SEO-tagged.
+1. **(Optional) Land the four `TODO: ARUN COPY` markers** when the underlying facts (tenant scale, trace screenshot, anonymized metrics) are cleared for public use, so future crawls pick up the final copy.
+2. **Send the production URL to LinkedIn, the GitHub profile, and a couple of targeted recruiter conversations.** The site is now the recruiter funnel; treat it like one.
+3. **Add a writing post when one is ready.** Pipeline is built, indexed, sitemapped, and SEO-tagged.
+4. **Run Lighthouse against production** and paste the four scores into `specs/07-verification-report.md` under a "Lighthouse (production)" subsection.
 5. **Optional: enable Vercel Speed Insights and Vercel Analytics dashboards.** Both are already wired in `app/layout.tsx`; flip them on in the Vercel project.
+6. **Optional: wire Resend** per `DEPLOY.md` § 6 if you want real contact-form delivery instead of the stub.
 
 ---
 
@@ -194,3 +197,4 @@ Shipping config:
 - Phase E done: 3 tasks, 1 commit, 45 vitest cases green, 10 Playwright cases green, 24 screenshots, axe zero violations.
 - Phase F done: 4 tasks, this commit. README, vercel.json, GH Actions, verification report, scratchpad summary.
 - Deploy phase done: site live on the custom domain at <https://arunveligatla.com>. GitHub repo at <https://github.com/arunveligatla99/portfolio>. Vercel hookup, env vars, DNS, and HTTPS issuance all complete. `DEPLOY.md` retained for future redeploys and rollbacks.
+- Post-launch consolidation pass (2026-05-11): README, `specs/02-technical-spec.md`, `specs/07-verification-report.md`, `DEPLOY.md`, and this scratchpad synced to current state. 9 case studies, 22 routes, Next 15.5.18, next-mdx-remote 6.0.0, site live on the apex. Other specs (01, 03, 04, 05, 06) deliberately left untouched per scope.

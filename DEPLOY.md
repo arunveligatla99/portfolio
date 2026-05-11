@@ -11,6 +11,9 @@ Reference, not duplication: env vars, scripts, and authoring details live in
 
 ## 0. Pre-flight (one-shot)
 
+> **Status:** complete (initial deploy run, 2026-05). Gates green, resume PDF in place, TODO markers acknowledged.
+
+
 - [ ] `git status` clean.
 - [ ] `npm run typecheck && npm run lint && npm run test && npm run build` all green locally.
 - [ ] Confirm 3 remaining placeholder markers in `content/projects/` are acceptable to ship as-is, or land replacements:
@@ -20,6 +23,9 @@ Reference, not duplication: env vars, scripts, and authoring details live in
 - [ ] Real resume PDF in place at `public/arun-veligatla-resume.pdf` (currently 354 KB, committed).
 
 ## 1. Push to GitHub
+
+> **Status:** complete. Remote: <https://github.com/arunveligatla99/portfolio>. Default branch `main`. CI workflow runs on every push.
+
 
 - [ ] Create empty private (or public) GitHub repo.
 - [ ] Add remote, push `main`:
@@ -31,11 +37,17 @@ Reference, not duplication: env vars, scripts, and authoring details live in
 
 ## 2. Vercel project hookup
 
+> **Status:** complete. Vercel project linked to the GitHub repo, framework auto-detected as Next.js, `vercel.json` honoured.
+
+
 - [ ] Vercel dashboard → **Add New Project** → Import the GitHub repo.
 - [ ] Framework auto-detects as Next.js. Leave defaults. `vercel.json` is honoured.
 - [ ] Do **not** deploy yet; configure env vars first.
 
 ## 3. Environment variables on Vercel
+
+> **Status:** complete for the build-required var. `NEXT_PUBLIC_SITE_URL` set to `https://arunveligatla.com`. `RESEND_API_KEY` is intentionally not set; `/api/contact` runs in stub mode in production. See Phase 6 for the Resend path when ready to wire real email.
+
 
 Set in Vercel → Project → Settings → Environment Variables. Apply to
 **Production**, **Preview**, and **Development** unless noted. Full reference
@@ -52,6 +64,9 @@ in [README › Environment variables](./README.md#environment-variables).
 
 ## 4. First deploy validation
 
+> **Status:** complete. Auto-assigned `*.vercel.app` deploy validated by the project owner before the custom-domain flip.
+
+
 Auto-assigned URL: `https://<project>.vercel.app`.
 
 - [ ] Home loads, hero renders, theme toggle persists.
@@ -66,6 +81,9 @@ Auto-assigned URL: `https://<project>.vercel.app`.
 - [ ] `/og?title=Test&eyebrow=AI` returns a 1200×630 PNG.
 
 ## 5. Domain + DNS
+
+> **Status:** complete on 2026-05-11. `arunveligatla.com` live on the apex with HTTPS cert issued by Vercel; `NEXT_PUBLIC_SITE_URL` flipped to the canonical URL and redeployed.
+
 
 Once the domain is chosen (assume `arunveligatla.com`):
 
@@ -83,12 +101,18 @@ Once the domain is chosen (assume `arunveligatla.com`):
 
 ## 6. Resend (only if you set `RESEND_API_KEY`)
 
+> **Status:** deferred. Production currently runs in Resend stub mode; `/api/contact` returns `{ ok: true, stub: true }` and logs the payload server-side. This phase is the path to real email delivery when ready.
+
+
 - [ ] Resend → Domains → add `arunveligatla.com`. Set the DKIM, SPF, and Return-Path records on the registrar.
 - [ ] Wait for Resend to flip the domain to **Verified**.
 - [ ] Set `RESEND_FROM` to a verified sender on that domain (e.g. `contact@arunveligatla.com`).
 - [ ] Submit the contact form on production. Confirm delivery to `CONTACT_TO_EMAIL`.
 
 ## 7. Post-deploy validation
+
+> **Status:** partial. Site is functionally live on the custom domain. OG-inspector validation, Lighthouse production smoke, Search Console / Bing submission, and the schema rich-results check have not been formally captured yet. The functional smoke (form, redirects, mobile viewports) was verified during the first-deploy pass.
+
 
 ### OG card validation
 
@@ -132,6 +156,9 @@ npx @lhci/cli@0.13.x autorun \
 - [ ] Mobile Safari + Mobile Chrome: open the home page, the about page, one case study. No layout breaks at 375px.
 
 ## 8. Optional follow-ups (not blockers)
+
+> **Status:** open. None of these have been actioned. All remain available, none blocking.
+
 
 - [ ] Vercel Analytics + Speed Insights: enable in the Vercel project dashboard. The hooks are already wired in `app/layout.tsx`.
 - [ ] Add the production URL to the GitHub repo description and the LinkedIn profile.

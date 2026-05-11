@@ -7,7 +7,7 @@
 | Language | TypeScript strict | Catches the obvious before runtime. No `any` without a justifying comment. |
 | Styling | Tailwind CSS v4 | Token-driven, no runtime cost, matches the minimal/technical design tone. |
 | Components | shadcn/ui (selective) | Copy-in primitives, full control, no opaque dependency. Pull only what is used. |
-| MDX | `@next/mdx` + `gray-matter` | Frontmatter for projects/posts; MDX inline for code blocks and React components. |
+| MDX | `next-mdx-remote` (v6, `/rsc` entry) + `gray-matter` | Frontmatter for projects/posts; MDX inline for code blocks and React components. v6 hardens `blockJS` / `blockDangerousJS` to `true`; author markers inside MDX bodies use markdown reference-link comments (`[//]: # (...)`). |
 | Code highlighting | `shiki` (build-time) | Themeable, zero client JS, GitHub Dark / Light Default. |
 | Icons | `lucide-react` | Tree-shakable, ships only used glyphs. |
 | Testing | Vitest + Testing Library | Fast unit/component tests. Colocated `*.test.tsx`. |
@@ -143,7 +143,7 @@ interface PostFrontmatter {
 ## Build / CI / deploy
 - Single `package.json` script set: `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:e2e`, `format`.
 - GitHub Actions workflow: install → typecheck → lint → vitest → playwright → build. Lighthouse CI deferred to a manual step (documented in README).
-- Vercel deploy via push to `main`. `vercel.json` declares Node version, output dir, and a redirect from `/cv` to `/resume` (vanity).
+- Vercel deploy via push to `main`. `vercel.json` declares the redirect from `/cv` to `/resume` (vanity), plus 308 redirects for the old project slugs (`verax-erp` → `agentix-erp`, `loanpulse` → `/projects`, `nemo-trizetto` → `/projects`), and a small set of security headers.
 - Sitemap and robots emit from `app/sitemap.ts` and `app/robots.ts` at request time / build, no separate postbuild step.
 
 ## Performance budget enforcement
@@ -156,7 +156,7 @@ interface PostFrontmatter {
 ## Justification log for added dependencies
 | Dep | Why |
 |---|---|
-| `@next/mdx`, `remark-gfm`, `rehype-shiki`, `gray-matter` | MDX with GFM tables and build-time syntax highlight. |
+| `next-mdx-remote`, `remark-gfm`, `rehype-slug`, `gray-matter`, `shiki` | MDX with GFM tables, slugged headings, and build-time syntax highlight. `shiki` is invoked directly from the case-study page (`codeToHtml`) so a `rehype-shiki` plugin is not required. |
 | `@vercel/analytics`, `@vercel/speed-insights` | Vendor analytics with zero perf cost. |
 | `@vercel/og` | Per-page OG image. |
 | `lucide-react` | Icon set. |
