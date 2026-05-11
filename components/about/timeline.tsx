@@ -37,9 +37,7 @@ const ENTRIES: TimelineEntry[] = [
     period: '2013 to 2015',
     role: 'MS, Computer Science and Engineering',
     org: 'Oakland University, Michigan',
-    highlights: [
-      'Distributed systems, databases, machine learning.',
-    ],
+    highlights: [],
   },
   {
     period: '2008 to 2012',
