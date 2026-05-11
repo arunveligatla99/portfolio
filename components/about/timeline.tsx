@@ -22,7 +22,7 @@ const ENTRIES: TimelineEntry[] = [
     org: 'Nemo Health LLC',
     highlights: [
       'NemoRx (May 2018 to Apr 2021): multi-tenant SaaS e-prescribing with React frontend, Cosmos DB partition-key isolation, SureScripts integration, and DEA EPCS-compliant identity federation via Okta and Exostar.',
-      'TRAKnet (Dec 2014 to Apr 2018): podiatry EHR platform on .NET / WPF / UWP / WinForms across hundreds of active practices. Led distributed offshore engineering team.',
+      'TRAKnet (Dec 2014 to Apr 2021): podiatry EHR platform on .NET / WPF / UWP / WinForms across hundreds of active practices. Led distributed offshore development team.',
     ],
   },
   {
