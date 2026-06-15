@@ -9,11 +9,13 @@ const GROUPS: SkillGroup[] = [
     label: 'Agentic AI / GenAI',
     proficient: [
       'LangGraph',
+      'LangChain',
       'Multi-Agent Orchestration',
       'ReAct Tool-Calling',
       'Versioned Prompt Registry',
       'GPT-4o (structured output)',
       'text-embedding-3-large',
+      'NLP (NLI, Text Classification, Semantic Search)',
       'Qdrant',
       'BM25 + Vector Hybrid + RRF',
       'Cross-Encoder Reranking',

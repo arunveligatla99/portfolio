@@ -20,7 +20,7 @@ stack:
 highlights:
   - 'Architected a four-agent LangGraph system (Orchestrator, Domain Router, Synthesis, Compliance Guard) with a typed `DiagnosticSession` state object, ReAct-style tool-calling, conditional retry routing, and full execution auditability.'
   - 'Citation-first hybrid retrieval (Qdrant + BM25 + RRF + cross-encoder rerank) holds 92.5% citation accuracy at p95 under 800ms across the production query mix.'
-  - 'Compliance-guard agent enforces NLI-based hallucination verification with 100% recall on escalation-critical queries, refusing rather than guessing when the retrieved context does not support an answer.'
+  - 'Compliance-guard agent applies NLP-based NLI hallucination verification with 100% recall on escalation-critical queries, refusing rather than guessing when the retrieved context does not support an answer.'
   - 'Containerized deployment with Docker, Langfuse tracing for replayable production runs, 167 passing tests, and CI-enforced RAGAS gates: faithfulness ≥ 88%, context recall ≥ 90%, escalation recall = 100%.'
 metrics:
   - { label: 'Citation accuracy', value: '92.5%' }
